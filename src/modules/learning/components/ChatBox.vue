@@ -1,35 +1,56 @@
 <template>
-  <div class="chat-wrapper">
-    <div class="chat-header">
-      <div class="chat-title-group">
-        <h3>Thảo luận</h3>
-        <span class="context-badge">{{ store.currentLesson.title }}</span>
-      </div>
-      <div class="participant-count">
-        <span class="dot"></span> {{ store.activeLearners }}
-      </div>
-    </div>
-
-    <div class="chat-messages">
-      <div v-for="msg in store.messages" :key="msg.id" class="message">
-        <span class="user">{{ msg.user }}:</span>
-        <span class="text">{{ msg.text }}</span>
-        <span class="time">{{ msg.time }}</span>
-      </div>
-      
-      <div v-if="store.messages.length === 0" class="empty-chat">
-        Chưa có thảo luận nào cho bài học này. Hãy là người đầu tiên!
+  <div class="flex flex-col h-full bg-[#1c1e24]/80 backdrop-blur-xl rounded-[24px] shadow-2xl border border-white/5 overflow-hidden">
+    
+    <div class="pt-2 px-2 border-b border-white/5">
+      <div class="flex bg-black/20 rounded-[16px] p-1">
+        <button class="flex-1 py-2 text-[13px] font-semibold text-white bg-white/10 rounded-[12px] shadow-sm">
+          <i class="fa-regular fa-comments mr-1.5"></i> Thảo luận
+        </button>
+        <button class="flex-1 py-2 text-[13px] font-semibold text-gray-500 hover:text-gray-300 transition-colors">
+          <i class="fa-solid fa-circle-question mr-1.5"></i> Hỏi đáp (Q&A)
+        </button>
       </div>
     </div>
 
-    <div class="chat-input">
-      <input 
-        v-model="newMessage" 
-        @keyup.enter="sendMessage"
-        type="text" 
-        placeholder="Nhập nội dung thảo luận..." 
-      />
-      <button @click="sendMessage">Gửi</button>
+    <div class="flex-1 overflow-y-auto p-5 flex flex-col gap-6 custom-scrollbar relative">
+      <div v-for="msg in store.messages" :key="msg.id" class="flex gap-3 group">
+        <div class="w-9 h-9 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-full flex items-center justify-center text-[14px] font-bold shrink-0 shadow-lg shadow-blue-500/20">
+          {{ msg.user.charAt(0) }}
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="text-[14px] font-bold text-gray-100">{{ msg.user }}</span>
+            <span class="text-[10px] text-gray-500 bg-white/5 px-2 py-0.5 rounded-full">{{ msg.time }}</span>
+          </div>
+          <div class="text-[13px] text-gray-300 leading-relaxed bg-white/5 p-3 rounded-[0_16px_16px_16px] border border-white/5 group-hover:border-white/10 transition-colors">
+            {{ msg.text }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-4 bg-black/20 border-t border-white/5">
+      <div class="flex items-center bg-[#2a2d35] rounded-[20px] p-1.5 border border-white/5 focus-within:border-blue-500/50 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all shadow-inner">
+        
+        <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-400 hover:bg-white/5 rounded-full transition-colors ml-1">
+          <i class="fa-solid fa-paperclip text-[14px]"></i>
+        </button>
+
+        <input 
+          v-model="newMessage" 
+          @keyup.enter="sendMessage"
+          type="text" 
+          placeholder="Nhập nội dung..." 
+          class="flex-1 bg-transparent border-none text-gray-200 text-[13px] focus:outline-none placeholder-gray-500 w-full px-2"
+        />
+        
+        <button 
+          @click="sendMessage"
+          class="w-8 h-8 flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white border-none rounded-full cursor-pointer transition-all shadow-md shadow-blue-500/30 mr-1"
+        >
+          <i class="fa-solid fa-paper-plane text-[12px] -ml-0.5 mt-0.5"></i>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +64,6 @@ const newMessage = ref('')
 
 const sendMessage = () => {
   if (newMessage.value.trim() !== '') {
-    // Gọi action addMessage trong store, nó sẽ tự động lấy ID bài học hiện tại để gán vào
     store.addMessage(newMessage.value)
     newMessage.value = ''
   }
@@ -51,149 +71,6 @@ const sendMessage = () => {
 </script>
 
 <style scoped>
-.chat-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: #1f2937;
-  border-radius: 8px;
-  border: 1px solid #374151;
-}
-
-.chat-header {
-  padding: 15px;
-  border-bottom: 1px solid #374151;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.chat-title-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.chat-title-group h3 {
-  margin: 0;
-  font-size: 16px;
-  color: #f3f4f6;
-}
-
-.context-badge {
-  font-size: 11px;
-  color: #10b981;
-  background: rgba(16, 185, 129, 0.1);
-  padding: 3px 6px;
-  border-radius: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 180px;
-}
-
-.participant-count {
-  font-size: 13px;
-  color: #10b981;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 2px;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  background-color: #10b981;
-  border-radius: 50%;
-}
-
-.chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.message {
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.user {
-  font-weight: bold;
-  color: #60a5fa;
-  margin-right: 5px;
-}
-
-.text {
-  color: #d1d5db;
-}
-
-.time {
-  font-size: 11px;
-  color: #9ca3af;
-  margin-left: 8px;
-}
-
-.empty-chat {
-  text-align: center;
-  color: #6b7280;
-  font-size: 13px;
-  margin-top: 20px;
-  font-style: italic;
-}
-
-.chat-input {
-  padding: 15px;
-  border-top: 1px solid #374151;
-  display: flex;
-  gap: 10px;
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 8px 12px;
-  border-radius: 4px;
-  border: 1px solid #4b5563;
-  background-color: #374151;
-  color: white;
-  outline: none;
-}
-
-.chat-input input:focus {
-  border-color: #3b82f6;
-}
-
-.chat-input button {
-  padding: 8px 15px;
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.chat-input button:hover {
-  background-color: #2563eb;
-}
-
-/* Tùy chỉnh thanh cuộn cho khu vực chat gọn gàng hơn */
-.chat-messages::-webkit-scrollbar {
-  width: 6px;
-}
-.chat-messages::-webkit-scrollbar-track {
-  background: transparent;
-}
-.chat-messages::-webkit-scrollbar-thumb {
-  background: #4b5563;
-  border-radius: 4px;
-}
-.chat-messages::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
-}
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
 </style>

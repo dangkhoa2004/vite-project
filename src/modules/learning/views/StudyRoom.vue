@@ -1,20 +1,26 @@
 <template>
   <LearningLayout>
-    <div class="study-room-grid">
+    <div class="relative bg-[#0f1115] h-[calc(100vh-60px)] font-sans text-gray-200 overflow-hidden z-0">
       
-      <aside class="sidebar-left">
-        <TableOfContents />
-      </aside>
+      <div class="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none z-[-1]"></div>
+      <div class="absolute bottom-[-10%] right-[-5%] w-[30vw] h-[30vw] bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
 
-      <main class="main-content">
-        <SlideViewer />
-        <AttachmentList />
-      </main>
+      <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr_340px] gap-6 p-4 lg:p-6 h-full relative z-10">
+        
+        <aside class="h-[400px] lg:h-full overflow-hidden">
+          <TableOfContents />
+        </aside>
 
-      <aside class="sidebar-right">
-        <ChatBox />
-      </aside>
+        <main class="flex flex-col gap-6 overflow-y-auto hide-scrollbar pb-10">
+          <SlideViewer />
+          <AttachmentList />
+        </main>
 
+        <aside class="h-[400px] lg:h-full overflow-hidden">
+          <ChatBox />
+        </aside>
+
+      </div>
     </div>
   </LearningLayout>
 </template>
@@ -28,33 +34,6 @@ import ChatBox from '@/modules/learning/components/ChatBox.vue'
 </script>
 
 <style scoped>
-.study-room-grid {
-  display: grid;
-  /* Chia 3 cột: Mục lục 260px - Ở giữa tự co giãn - Chat 320px */
-  grid-template-columns: 260px 1fr 320px;
-  gap: 20px;
-  padding: 20px;
-  height: calc(100vh - 60px); 
-}
-
-.sidebar-left { height: 100%; overflow: hidden; }
-.sidebar-right { height: 100%; overflow: hidden; }
-
-.main-content {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-
-/* Responsive: Thu lại thành 1 cột trên màn hình điện thoại */
-@media (max-width: 1024px) {
-  .study-room-grid {
-    grid-template-columns: 1fr;
-    height: auto;
-  }
-  
-  .sidebar-left, .sidebar-right {
-    height: 400px; /* Cố định chiều cao trên mobile */
-  }
-}
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
