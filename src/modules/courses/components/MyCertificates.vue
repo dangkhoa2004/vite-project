@@ -15,19 +15,19 @@
             <div class="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
               <i class="fa-solid fa-medal text-2xl text-emerald-400"></i>
             </div>
-            <span class="px-3 py-1 bg-white/5 text-gray-400 text-[11px] rounded-full border border-white/5">
+            <span class="px-3 py-1 bg-white/5 text-[var(--text-secondary)] text-[11px] rounded-full border border-[var(--border-color)]">
               Cấp ngày: {{ cert.date }}
             </span>
           </div>
 
-          <h3 class="text-[16px] font-bold text-white mb-2">{{ cert.courseName }}</h3>
-          <p class="text-[12px] text-gray-400 mb-6">ID Chứng chỉ: <span class="font-mono text-gray-300">{{ cert.credentialId }}</span></p>
+          <h3 class="text-[16px] font-bold text-[var(--text-primary)] mb-2">{{ cert.courseName }}</h3>
+          <p class="text-[12px] text-[var(--text-secondary)] mb-6">ID Chứng chỉ: <span class="font-mono text-gray-300">{{ cert.credentialId }}</span></p>
 
           <div class="mt-auto flex gap-3">
-            <button class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-[13px] font-bold rounded-xl transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
+            <button class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-[var(--text-primary)] text-[13px] font-bold rounded-xl transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
               <i class="fa-solid fa-download"></i> Tải PDF
             </button>
-            <button class="w-12 h-12 bg-white/5 hover:bg-white/10 text-gray-300 rounded-xl transition-all flex items-center justify-center border border-white/5" title="Chia sẻ lên LinkedIn">
+            <button class="w-12 h-12 bg-white/5 hover:bg-white/10 text-gray-300 rounded-xl transition-all flex items-center justify-center border border-[var(--border-color)]" title="Chia sẻ lên LinkedIn">
               <i class="fa-brands fa-linkedin-in"></i>
             </button>
           </div>

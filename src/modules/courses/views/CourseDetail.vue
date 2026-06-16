@@ -1,6 +1,7 @@
 <template>
   <HomePageHeader />
-  <div class="min-h-screen bg-[#0f1115] text-gray-200 font-sans relative overflow-hidden pb-20 pt-24">
+  <div
+    class="min-h-screen bg-[var(--bg-app)] text-[var(--text-primary)] font-sans relative overflow-hidden pb-20 pt-24 transition-colors duration-300">
 
     <div
       class="absolute top-[10%] left-[-10%] w-[40vw] h-[40vw] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none z-0">
@@ -11,30 +12,30 @@
 
     <main class="relative z-10 max-w-7xl mx-auto px-6">
 
-      <nav class="flex items-center gap-2 text-[13px] text-gray-500 mb-6 font-medium">
+      <nav class="flex items-center gap-2 text-[13px] text-[var(--text-secondary)] mb-6 font-medium">
         <a href="/" class="hover:text-blue-400 transition-colors">Trang chủ</a>
         <i class="fa-solid fa-chevron-right text-[10px]"></i>
         <a href="/khoa-hoc" class="hover:text-blue-400 transition-colors">Khóa học</a>
         <i class="fa-solid fa-chevron-right text-[10px]"></i>
-        <span class="text-gray-300">Chi tiết khóa học</span>
+        <span class="text-[var(--text-primary)]">Chi tiết khóa học</span>
       </nav>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
         <div class="lg:col-span-2 flex flex-col gap-4">
           <div
-            class="relative w-full aspect-video bg-[#1c1e24] rounded-[24px] border border-white/10 shadow-2xl overflow-hidden group cursor-pointer">
+            class="relative w-full aspect-video bg-[var(--bg-card)] rounded-[24px] border border-[var(--border-color)] shadow-2xl overflow-hidden group cursor-pointer">
             <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1200&q=80"
               alt="Video bài giảng"
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             <div
               class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
               <div
-                class="w-20 h-20 bg-blue-600/90 backdrop-blur-md rounded-full flex items-center justify-center text-white text-2xl shadow-[0_0_30px_rgba(37,99,235,0.6)] group-hover:scale-110 transition-transform">
+                class="w-20 h-20 bg-blue-600/90 backdrop-blur-md rounded-full flex items-center justify-center text-[var(--text-primary)] text-2xl shadow-[0_0_30px_rgba(37,99,235,0.6)] group-hover:scale-110 transition-transform">
                 <i class="fa-solid fa-play ml-1"></i>
               </div>
             </div>
           </div>
-          <h1 class="text-2xl md:text-3xl font-bold text-white leading-tight">
+          <h1 class="text-2xl md:text-3xl font-bold text-[var(--text-primary)] leading-tight">
             Tư duy Toán học Tiêu chuẩn - Bài 2: Đạo hàm cơ bản
           </h1>
         </div>
@@ -45,24 +46,19 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
-        <div class="lg:col-span-2 space-y-10 text-gray-400 leading-relaxed text-[15px]">
-
+        <div class="lg:col-span-2 space-y-10 text-[var(--text-secondary)] leading-relaxed text-[15px]">
           <MentorOfCourse :instructor="instructor" />
 
           <section>
-            <h2 class="text-2xl font-bold text-white mb-4">Thông tin khóa học</h2>
-            <p>Khóa học này cung cấp nền tảng vững chắc về tư duy logic và các kỹ năng giải quyết vấn đề toán học. Phù
-              hợp cho học sinh muốn nâng cao thành tích và chuẩn bị cho các kỳ thi quan trọng. Nội dung được thiết kế
-              trực quan, dễ hiểu, đi từ cơ bản đến nâng cao với hàng trăm bài tập thực hành sát thực tế.</p>
-            <p class="mt-4">Bạn sẽ được tiếp cận phương pháp học tập chủ động, giúp ghi nhớ lâu và phản xạ nhanh trước
-              các dạng đề khó.</p>
+            <h2 class="text-2xl font-bold text-[var(--text-primary)] mb-4">Thông tin khóa học</h2>
+            <p>Khóa học này cung cấp nền tảng vững chắc về tư duy logic...</p>
           </section>
 
           <section>
-            <h2 class="text-2xl font-bold text-white mb-4">Bạn sẽ học được gì trong khóa học này:</h2>
+            <h2 class="text-2xl font-bold text-[var(--text-primary)] mb-4">Bạn sẽ học được gì:</h2>
             <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <li v-for="i in 6" :key="i"
-                class="flex items-start gap-3 bg-white/5 p-4 rounded-2xl border border-white/5">
+                class="flex items-start gap-3 bg-[var(--bg-card)] p-4 rounded-2xl border border-[var(--border-color)]">
                 <div
                   class="mt-0.5 w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                   <i class="fa-solid fa-check text-[12px]"></i>
@@ -70,13 +66,6 @@
                 <span class="text-[14px]">Nắm vững toàn bộ các định lý toán học cơ bản áp dụng thực tế.</span>
               </li>
             </ul>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-white mb-4">Chứng chỉ hoàn thành</h2>
-            <p>Sau khi hoàn thành 100% video bài giảng và vượt qua bài kiểm tra cuối khóa với điểm số tối thiểu 80/100,
-              học viên sẽ được cấp Chứng nhận hoàn thành khóa học từ EduPlatform, có giá trị lưu hành toàn quốc và tích
-              hợp trực tiếp vào CV xin việc hoặc hồ sơ học tập.</p>
           </section>
         </div>
 
@@ -86,9 +75,7 @@
       </div>
 
       <CourseSimilar :courses="similarCourses" />
-
       <NewsletterBanner />
-
     </main>
   </div>
   <HomePageFooter />

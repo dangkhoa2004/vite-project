@@ -2,18 +2,17 @@
   <router-view />
 
   <Transition name="fade">
-    <div 
-      v-if="isLoading" 
-      class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0f1115]/80 backdrop-blur-xl"
-    >
-      <div class="bg-[#1c1e24]/90 p-8 rounded-[24px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center">
+    <div v-if="isLoading"
+      class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[var(--bg-app)]/80 backdrop-blur-xl">
+      <div
+        class="bg-[var(--bg-card)] p-8 rounded-[24px] border border-[var(--border-color)] shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center">
         <div class="relative w-16 h-16 flex items-center justify-center mb-4">
-          <div class="absolute inset-0 border-4 border-white/10 rounded-full"></div>
+          <div class="absolute inset-0 border-4 border-[var(--border-color)] rounded-full"></div>
           <div class="absolute inset-0 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
           <i class="fa-solid fa-graduation-cap text-blue-400 text-xl animate-pulse"></i>
         </div>
-        
-        <h3 class="text-white font-bold tracking-wider text-sm">{{ loadingText }}</h3>
+
+        <h3 class="text-[var(--text-primary)] font-bold tracking-wider text-sm">{{ loadingText }}</h3>
       </div>
     </div>
   </Transition>

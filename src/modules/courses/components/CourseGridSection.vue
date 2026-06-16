@@ -8,7 +8,7 @@
       
       <div class="flex justify-center gap-4">
         <button class="px-6 py-2 rounded-full text-sm font-medium bg-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">Mẫu giáo</button>
-        <button class="px-6 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg shadow-orange-500/20">Trung học</button>
+        <button class="px-6 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-orange-500 to-red-500 text-[var(--text-primary)] shadow-lg shadow-orange-500/20">Trung học</button>
         <button class="px-6 py-2 rounded-full text-sm font-medium bg-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">Đại học</button>
       </div>
     </div>
@@ -16,7 +16,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full mb-10">
       <div v-for="i in 8" :key="i" class="bg-[var(--bg-card)]/60 backdrop-blur-md rounded-[24px] p-6 border border-[var(--border-color)] hover:-translate-y-2 hover:border-blue-500/30 transition-all duration-300 flex flex-col items-center text-center group">
         
-        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl mb-4 shadow-lg">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-[var(--text-primary)] font-bold text-xl mb-4 shadow-lg">
           {{ i }}
         </div>
         
@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <button class="px-8 py-3 bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600 hover:text-white rounded-full font-medium transition-all shadow-[0_4px_20px_rgba(37,99,235,0.2)]">
+    <button class="px-8 py-3 bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600 hover:text-[var(--text-primary)] rounded-full font-medium transition-all shadow-[0_4px_20px_rgba(37,99,235,0.2)]">
       Xem thêm các lớp học
     </button>
   </section>

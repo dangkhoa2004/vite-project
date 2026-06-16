@@ -1,19 +1,20 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import path from 'path'
-import { fileURLToPath, URL } from 'node:url' // Thêm dòng này
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import path from "path";
+import { fileURLToPath, URL } from "node:url"; // Thêm dòng này
+import vueDevTools from "vite-plugin-vue-devtools";
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), vueDevTools()],
   build: {
-    emptyOutDir: false, 
-    assetsDir: 'assets',
+    emptyOutDir: false,
+    assetsDir: "assets",
   },
-  base: '/',
+  base: "/",
   resolve: {
     alias: {
       // Cấu hình @ trỏ đến thư mục src
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
-})
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
+});

@@ -23,7 +23,7 @@ const router = createRouter({
 })
 
 // Navigation Guard chặn truy cập trái phép VÀ bật Loading
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from) => {
   const { isAuthenticated } = useAuth()
   const { showLoader } = useGlobalLoader()
 
@@ -32,10 +32,10 @@ router.beforeEach((to, from, next) => {
 
   // Logic kiểm tra đăng nhập của em giữ nguyên
   if (to.meta.requiresAuth && !isAuthenticated.value) {
-    next({ name: 'Login', query: { redirect: to.fullPath } })
-  } else {
-    next()
+    return { name: 'Login', query: { redirect: to.fullPath } }
   }
+
+  return true
 })
 
 // Hook chạy sau khi trang đã được tải xong

@@ -1,12 +1,12 @@
 <template>
-  <div class="h-screen flex flex-col bg-[#0f1115] text-gray-200 font-sans overflow-hidden">
+  <div class="h-screen flex flex-col bg-[var(--bg-app)] text-gray-200 font-sans overflow-hidden">
 
     <header
-      class="h-[70px] shrink-0 bg-[#1c1e24]/80 backdrop-blur-xl border-b border-white/5 flex items-center justify-between px-4 sm:px-6 z-50 shadow-sm">
+      class="h-[70px] shrink-0 bg-[#1c1e24]/80 backdrop-blur-xl border-b border-[var(--border-color)] flex items-center justify-between px-4 sm:px-6 z-50 shadow-sm">
 
       <div class="flex items-center gap-4 sm:gap-6">
         <button @click="$router.push('/khoa-hoc-cua-toi')"
-          class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all border border-white/5 group shadow-sm"
+          class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all border border-[var(--border-color)] group shadow-sm"
           title="Quay lại danh sách khóa học">
           <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
         </button>
@@ -20,7 +20,7 @@
             <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-0.5">Phòng học trực
               tuyến</span>
             <h2
-              class="text-[14px] sm:text-[15px] font-bold text-white leading-none truncate max-w-[200px] sm:max-w-[400px]">
+              class="text-[14px] sm:text-[15px] font-bold text-[var(--text-primary)] leading-none truncate max-w-[200px] sm:max-w-[400px]">
               Xây dựng Frontend với Vue 3
             </h2>
           </div>
@@ -29,12 +29,12 @@
 
       <div class="flex items-center gap-5">
         <div
-          class="hidden md:flex items-center gap-3 bg-black/20 px-4 py-1.5 rounded-full border border-white/5 shadow-inner">
-          <span class="text-[11px] text-gray-400 font-medium">Tiến độ:</span>
+          class="hidden md:flex items-center gap-3 bg-black/20 px-4 py-1.5 rounded-full border border-[var(--border-color)] shadow-inner">
+          <span class="text-[11px] text-[var(--text-secondary)] font-medium">Tiến độ:</span>
           <div class="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden">
             <div class="h-full bg-gradient-to-r from-blue-500 to-cyan-400 w-[60%] rounded-full"></div>
           </div>
-          <span class="text-[12px] font-bold text-white">60%</span>
+          <span class="text-[12px] font-bold text-[var(--text-primary)]">60%</span>
         </div>
       </div>
 

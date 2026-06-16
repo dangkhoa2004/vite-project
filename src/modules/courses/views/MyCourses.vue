@@ -1,7 +1,7 @@
 <template>
     <HomePageHeader />
 
-    <div class="min-h-screen bg-[#0f1115] text-gray-200 font-sans relative overflow-hidden pb-20 pt-28">
+    <div class="min-h-screen bg-[var(--bg-app)] text-gray-200 font-sans relative overflow-hidden pb-20 pt-28">
         <div
             class="absolute top-[5%] left-[-5%] w-[45vw] h-[45vw] bg-blue-600/15 rounded-full blur-[150px] pointer-events-none z-0">
         </div>
