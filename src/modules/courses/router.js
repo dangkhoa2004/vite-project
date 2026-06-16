@@ -9,7 +9,7 @@ export default [
     path: "/khoa-hoc",
     name: "Courses",
     // Gọi đến views của module courses
-    component: () => import("./views/Courses.vue"),
+    component: () => import("./views/CommerceCourses.vue"),
   },
   {
     path: "/chi-tiet-khoa-hoc",
@@ -23,4 +23,10 @@ export default [
     // Gọi đến views của module courses
     component: () => import("./views/MyCourses.vue"),
   },
+  {
+    path: "/giang-vien/:id",
+    name: "MentorDetail",
+    // Gọi đến views của module courses
+    component: () => import("./views/MentorDetail.vue"),
+  }
 ];
