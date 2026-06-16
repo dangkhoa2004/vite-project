@@ -6,12 +6,14 @@ import { useGlobalLoader } from '@/composables/useGlobalLoader' // 1. Import com
 import authRoutes from '@/modules/auth/router'
 import courseRoutes from '@/modules/courses/router'
 import learningRoutes from '@/modules/learning/router'
+import systemRoutes from '@/modules/system/router'
 
 // 2. Gộp tất cả routes lại bằng Spread Operator (...)
 const routes = [
   ...courseRoutes,
   ...learningRoutes,
-  ...authRoutes
+  ...authRoutes,
+  ...systemRoutes
 ]
 
 // 3. Khởi tạo Router

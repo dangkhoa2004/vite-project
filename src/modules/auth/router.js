@@ -14,4 +14,19 @@ export default [
     name: "ForgotPassword",
     component: () => import("./views/ForgotPassword.vue"),
   },
+  {
+    path: "/thong-tin-tai-khoan",
+    name: "AccountInformation",
+    component: () => import("./views/AccountInformation.vue"),
+  },
+  {
+    path: "/lich-su-thanh-toan",
+    name: "PaymentHistory",
+    component: () => import("./views/PaymentHistory.vue"),
+  },
+  {
+    path: "/cai-dat-bao-mat",
+    name: "SecurityNPassword",
+    component: () => import("./views/SecurityNPassword.vue"),
+  }
 ];

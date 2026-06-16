@@ -162,7 +162,7 @@
                                 </div>
 
                                 <a :href="`/chi-tiet-khoa-hoc`" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-semibold rounded-xl transition-all shadow-md flex items-center gap-2 group-hover:-translate-y-0.5">
-                                    Vào học <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                    Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i>
                                 </a>
                             </div>
 

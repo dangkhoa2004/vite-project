@@ -1,3 +1,4 @@
+// src/composables/useAuth.js
 import { ref, readonly } from 'vue'
 
 // Khởi tạo state toàn cục đơn giản ngoài component
