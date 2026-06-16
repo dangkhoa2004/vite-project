@@ -1,9 +1,9 @@
 <template>
   <LearningLayout>
-    <div class="relative bg-[var(--bg-app)] h-[calc(100vh-60px)] font-sans text-gray-200 overflow-hidden z-0">
+    <div class="relative bg-[var(--bg-app)] h-[calc(100vh-60px)] font-sans text-[var(--text-primary)] overflow-hidden z-0">
       
-      <div class="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none z-[-1]"></div>
-      <div class="absolute bottom-[-10%] right-[-5%] w-[30vw] h-[30vw] bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
+      <div class="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none z-[-1]"></div>
+      <div class="absolute bottom-[-10%] right-[-5%] w-[30vw] h-[30vw] bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
 
       <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr_340px] gap-6 p-4 lg:p-6 h-full relative z-10">
         
