@@ -14,19 +14,19 @@
           </div>
 
           <div class="flex items-center gap-4">
-            <a href="#"
+            <a href="https://www.facebook.com/dangkh0a2004"
               class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-[#1877f2] hover:text-white transition-colors">
               <i class="fa-brands fa-facebook-f text-sm"></i>
             </a>
-            <a href="#"
+            <a href="https://www.instagram.com/dangkh0a2004"
               class="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 flex items-center justify-center text-white transition-transform hover:scale-110 shadow-lg shadow-pink-500/20">
               <i class="fa-brands fa-instagram text-sm"></i>
             </a>
-            <a href="#"
+            <a href=""
               class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-[#1da1f2] hover:text-white transition-colors">
               <i class="fa-brands fa-twitter text-sm"></i>
             </a>
-            <a href="#"
+            <a href=""
               class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-[#0a66c2] hover:text-white transition-colors">
               <i class="fa-brands fa-linkedin-in text-sm"></i>
             </a>
@@ -105,10 +105,10 @@
       </div>
 
       <div class="py-8 border-t border-white/20 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p class="text-[12px] text-gray-500">
+        <p class="text-[12px] text-white">
           Được thiết kế với ❤️ dành cho học viên hiện đại.
         </p>
-        <div class="flex items-center gap-4 text-[12px] text-gray-500">
+        <div class="flex items-center gap-4 text-[12px]">
           <a href="" class="hover:text-white transition-colors">Tiếng Việt</a>
           <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
           <a href="" class="hover:text-white transition-colors">English</a>

@@ -7,19 +7,29 @@ import authRoutes from '@/modules/auth/router'
 import courseRoutes from '@/modules/courses/router'
 import learningRoutes from '@/modules/learning/router'
 import systemRoutes from '@/modules/system/router'
+import NotFound from '@/components/NotFound.vue'
 
 // 2. Gộp tất cả routes lại bằng Spread Operator (...)
 const routes = [
   ...courseRoutes,
   ...learningRoutes,
   ...authRoutes,
-  ...systemRoutes
+  ...systemRoutes,
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: NotFound,
+    meta: {
+      requiresAuth: false, // Thường là trang công khai
+      title: 'Không tìm thấy trang'
+    }
+  }
 ]
 
 // 3. Khởi tạo Router
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
 
 // Navigation Guard chặn truy cập trái phép VÀ bật Loading

@@ -4,8 +4,7 @@
 
       <a href="/">
         <div class="flex items-center gap-3 cursor-pointer">
-          <div
-            class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg ">
             <i class="fa-solid fa-graduation-cap text-[var(--text-primary)] text-lg"></i>
           </div>
           <span class="text-xl font-bold text-[var(--text-primary)] tracking-wide">EduPlatform</span>
@@ -28,15 +27,14 @@
           <i :class="isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon'" class="text-lg"></i>
         </button>
 
-        <button
+        <a href="/gio-hang"
           class="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors group">
-          <span class="text-[14px] font-medium">Giỏ hàng (0)</span>
           <div class="relative">
             <i class="fa-solid fa-bag-shopping text-lg group-hover:text-orange-400 transition-colors"></i>
             <span
               class="absolute -top-1 -right-1 w-3 h-3 bg-orange-500 border border-[var(--bg-card)] rounded-full"></span>
           </div>
-        </button>
+        </a>
 
         <div v-if="isAuthenticated" class="relative group">
           <button

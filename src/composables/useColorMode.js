@@ -1,6 +1,5 @@
 import { ref, onMounted } from 'vue';
 
-// Khai báo ngoài hàm để nó thành biến dùng chung cho toàn ứng dụng
 const isDark = ref(false);
 
 export const useColorMode = () => {
@@ -20,13 +19,9 @@ export const useColorMode = () => {
     }
   };
 
-  // Khởi tạo giá trị từ localStorage khi trang load
+  // Đọc state hiện tại từ DOM (main.js đã set)
   onMounted(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      isDark.value = savedTheme === 'dark';
-      updateDOM();
-    }
+    isDark.value = document.documentElement.classList.contains('dark');
   });
 
   return { isDark, toggleDark, setDarkMode };
