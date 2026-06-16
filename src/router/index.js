@@ -7,6 +7,7 @@ import authRoutes from '@/modules/auth/router'
 import courseRoutes from '@/modules/courses/router'
 import learningRoutes from '@/modules/learning/router'
 import systemRoutes from '@/modules/system/router'
+import exploreRoutes from '@/modules/explore/router'
 import NotFound from '@/components/NotFound.vue'
 
 // 2. Gộp tất cả routes lại bằng Spread Operator (...)
@@ -14,6 +15,7 @@ const routes = [
   ...courseRoutes,
   ...learningRoutes,
   ...authRoutes,
+  ...exploreRoutes,
   ...systemRoutes,
   {
     path: '/:pathMatch(.*)*',
