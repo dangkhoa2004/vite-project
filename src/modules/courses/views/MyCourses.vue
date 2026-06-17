@@ -35,11 +35,13 @@
             </div>
         </main>
     </div>
+    <HomePageHeader />
 </template>
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import HomePageHeader from '@/layouts/HomePageHeader.vue'
+import HomePageFooter from '@/layouts/HomePageFooter.vue'
 
 // Import các components con
 import CourseHeader from '@/modules/courses/components/CourseHeader.vue'

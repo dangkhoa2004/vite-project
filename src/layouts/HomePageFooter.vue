@@ -120,11 +120,11 @@
         </div>
 
         <div class="flex items-center gap-6 text-[14px]">
-          <a href="https://github.com/dangkhoa2004" target="_blank"
+          <a href="https://github.com/dangkhoa2004/vite-project" target="_blank"
             class="text-gray-400 hover:text-white transition-colors duration-200" title="GitHub">
             <i class="fa-brands fa-github"></i>
           </a>
-          <a href="https://github.com/dangkhoa2004/vite-project" target="_blank"
+          <a href="https://www.facebook.com/dangkh0a2004" target="_blank"
             class="text-gray-400 hover:text-white transition-colors duration-200" title="Facebook">
             <i class="fa-brands fa-facebook"></i>
           </a>
