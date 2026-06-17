@@ -35,7 +35,7 @@
             </div>
         </main>
     </div>
-    <HomePageHeader />
+    <HomePageFooter />
 </template>
 <script setup>
 import { ref, computed } from 'vue'
