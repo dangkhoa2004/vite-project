@@ -87,11 +87,11 @@ import HomePageHeader from "@/layouts/HomePageHeader.vue"
 import HomePageFooter from "@/layouts/HomePageFooter.vue"
 
 // Import Sub-components
-import CoursePlaylist from "@/modules/courses/components/CoursePlaylist.vue"
-import CoursePricingSidebar from "@/modules/courses/components/CoursePricingSidebar.vue"
-import MentorOfCourse from "@/modules/courses/components/MentorOfCourse.vue"
-import CourseSimilar from "@/modules/courses/components/CourseSimilar.vue"
-import NewsletterBanner from "@/modules/courses/components/NewsletterBanner.vue"
+import CoursePlaylist from "../components/CoursePlaylist.vue"
+import CoursePricingSidebar from "../components/CoursePricingSidebar.vue"
+import MentorOfCourse from "../components/MentorOfCourse.vue"
+import CourseSimilar from "../components/CourseSimilar.vue"
+import NewsletterBanner from "../components/NewsletterBanner.vue"
 
 // --- MOCK DATA ---
 const instructor = ref({

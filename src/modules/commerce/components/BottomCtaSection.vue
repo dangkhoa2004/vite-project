@@ -8,14 +8,14 @@
         <span class="inline-block px-4 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-wider mb-6">
           Cấp độ Đại học
         </span>
-        <h2 class="text-4xl md:text-5xl font-extrabold text-[var(--text-primary)] mb-6 leading-tight">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
           Đừng lãng phí thời gian. <br/>
           Hãy phát triển kỹ năng.
         </h2>
-        <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-8">
+        <p class="text-sm text-white leading-relaxed mb-8">
           Hàng ngàn giờ học video chất lượng cao từ các chuyên gia hàng đầu. Bắt đầu hành trình nâng cao năng lực của bạn ngay hôm nay.
         </p>
-        <button class="px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-[var(--text-primary)] font-bold rounded-xl transition-all shadow-[0_4px_15px_rgba(37,99,235,0.4)]">
+        <button class="px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all shadow-[0_4px_15px_rgba(37,99,235,0.4)]">
           Đăng ký ngay
         </button>
       </div>

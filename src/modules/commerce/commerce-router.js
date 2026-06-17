@@ -18,12 +18,6 @@ export default [
     component: () => import("./views/CourseDetail.vue"),
   },
   {
-    path: "/khoa-hoc-cua-toi",
-    name: "MyCourses",
-    // Gọi đến views của module courses
-    component: () => import("./views/MyCourses.vue"),
-  },
-  {
     path: "/giang-vien/:id",
     name: "MentorDetail",
     // Gọi đến views của module courses

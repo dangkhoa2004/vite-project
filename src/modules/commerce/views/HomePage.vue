@@ -25,8 +25,8 @@
 <script setup>
 import HomePageHeader from "@/layouts/HomePageHeader.vue";
 import HomePageFooter from "@/layouts/HomePageFooter.vue";
-import HeroSection from "@/modules/courses/components/HeroSection.vue";
-import FeatureVideoSection from "@/modules/courses/components/FeatureVideoSection.vue";
-import CourseGridSection from "@/modules/courses/components/CourseGridSection.vue";
-import BottomCtaSection from "@/modules/courses/components/BottomCtaSection.vue";
+import HeroSection from "../components/HeroSection.vue";
+import FeatureVideoSection from "../components/FeatureVideoSection.vue";
+import CourseGridSection from "../components/CourseGridSection.vue";
+import BottomCtaSection from "../components/BottomCtaSection.vue";
 </script>

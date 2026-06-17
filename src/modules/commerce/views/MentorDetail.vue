@@ -1,10 +1,8 @@
-<!-- MentorDetail.vue --><!-- MentorDetail.vue -->
 <template>
     <HomePageHeader />
 
-    <div class="min-h-screen bg-[var(--bg-app)] text-gray-200 font-sans relative overflow-hidden pb-20 pt-24">
+    <div class="min-h-screen bg-[var(--bg-app)] text-[var(--text-primary)] font-sans relative overflow-hidden pb-20 pt-24 transition-colors duration-300">
 
-        <!-- Background Glows -->
         <div
             class="absolute top-[10%] left-[-10%] w-[40vw] h-[40vw] bg-blue-600/10 rounded-full blur-[150px] pointer-events-none z-0">
         </div>
@@ -14,141 +12,126 @@
 
         <main class="relative z-10 max-w-7xl mx-auto px-6">
 
-            <!-- Cover Banner -->
             <div
-                class="w-full h-48 md:h-64 rounded-[24px] overflow-hidden relative border border-[var(--border-color)] shadow-lg mt-4">
-                <img :src="mentor.cover" alt="Cover" class="w-full h-full object-cover opacity-60" />
+                class="w-full h-48 md:h-64 rounded-[24px] overflow-hidden relative border border-[var(--border-color)] shadow-lg mt-4 bg-[var(--bg-card)]">
+                <img :src="mentor.cover" alt="Cover" class="w-full h-full object-cover opacity-80 dark:opacity-60 transition-opacity" />
                 <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-app)] via-[var(--bg-app)]/50 to-transparent"></div>
             </div>
 
-            <!-- Main Layout Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8 items-start -mt-20 md:-mt-24 relative z-20">
 
-                <!-- Left Sidebar: Profile Info -->
                 <aside class="space-y-6">
-                    <!-- Profile Card -->
                     <div
-                        class="bg-[var(--bg-card)]/80 backdrop-blur-xl rounded-[24px] border border-[var(--border-color)] p-6 flex flex-col items-center text-center shadow-[0_15px_40px_rgba(0,0,0,0.5)] relative overflow-hidden">
+                        class="bg-[var(--bg-card)]/80 backdrop-blur-xl rounded-[24px] border border-[var(--border-color)] p-6 flex flex-col items-center text-center shadow-[0_15px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] relative overflow-hidden">
 
-                        <!-- Avatar -->
                         <div
-                            class="w-32 h-32 rounded-full p-1.5 bg-gradient-to-br from-blue-500 to-purple-500 mb-4 shadow-[0_0_30px_rgba(37,99,235,0.3)]">
+                            class="w-32 h-32 rounded-full p-1.5 bg-gradient-to-br from-blue-500 to-purple-500 mb-4 shadow-[0_0_30px_rgba(37,99,235,0.2)]">
                             <img :src="mentor.avatar" alt="Avatar"
-                                class="w-full h-full rounded-full object-cover border-4 border-[var(--bg-card)]" />
+                                class="w-full h-full rounded-full object-cover border-4 border-[var(--bg-card)] bg-[var(--bg-card)]" />
                         </div>
 
-                        <!-- Name & Title -->
                         <h1 class="text-2xl font-extrabold text-[var(--text-primary)] mb-1 flex items-center gap-2">
                             {{ mentor.name }}
                             <i class="fa-solid fa-circle-check text-blue-500 text-[14px]" title="Đã xác minh"></i>
                         </h1>
-                        <p class="text-[13px] text-blue-400 font-semibold mb-5">{{ mentor.title }}</p>
+                        <p class="text-[13px] text-blue-500 dark:text-blue-400 font-semibold mb-5">{{ mentor.title }}</p>
 
-                        <!-- Quick Stats -->
                         <div class="flex items-center justify-center gap-6 w-full border-y border-[var(--border-color)] py-4 mb-5">
                             <div class="flex flex-col items-center">
                                 <span class="text-lg font-bold text-[var(--text-primary)]">{{
                                     formatNumber(mentor.totalStudents)
                                 }}</span>
-                                <span class="text-[10px] text-gray-500 uppercase tracking-wider">Học viên</span>
+                                <span class="text-[10px] text-[var(--text-secondary)] uppercase tracking-wider">Học viên</span>
                             </div>
-                            <div class="w-px h-8 bg-white/10"></div>
+                            <div class="w-px h-8 bg-[var(--border-color)]"></div>
                             <div class="flex flex-col items-center">
                                 <div class="flex items-center gap-1 text-yellow-500">
                                     <span class="text-lg font-bold">{{ mentor.rating }}</span>
                                     <i class="fa-solid fa-star text-[12px]"></i>
                                 </div>
-                                <span class="text-[10px] text-gray-500 uppercase tracking-wider">{{ mentor.totalReviews
+                                <span class="text-[10px] text-[var(--text-secondary)] uppercase tracking-wider">{{ mentor.totalReviews
                                 }} Đánh giá</span>
                             </div>
                         </div>
 
-                        <!-- Social Links -->
                         <div class="flex gap-3 mb-6">
                             <a v-for="social in mentor.socials" :key="social.platform" :href="social.link"
                                 target="_blank"
-                                class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all">
+                                class="w-10 h-10 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] hover:text-blue-500 transition-all">
                                 <i :class="social.icon"></i>
                             </a>
                         </div>
 
-                        <!-- Actions -->
                         <div class="w-full space-y-3">
                             <button
-                                class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-[var(--text-primary)] text-[13px] font-bold rounded-xl shadow-[0_4px_15px_rgba(37,99,235,0.3)] transition-all flex items-center justify-center gap-2">
+                                class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-bold rounded-xl shadow-[0_4px_15px_rgba(37,99,235,0.2)] dark:shadow-[0_4px_15px_rgba(37,99,235,0.3)] transition-all flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-plus text-[12px]"></i> Theo dõi giảng viên
                             </button>
                             <button
-                                class="w-full py-3 bg-white/5 hover:bg-white/10 border border-[var(--border-color)] text-[var(--text-primary)] text-[13px] font-bold rounded-xl transition-all flex items-center justify-center gap-2">
+                                class="w-full py-3 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-[var(--border-color)] text-[var(--text-primary)] text-[13px] font-bold rounded-xl transition-all flex items-center justify-center gap-2">
                                 <i class="fa-regular fa-calendar-check text-[12px]"></i> Đặt lịch Mentoring 1:1
                             </button>
                         </div>
                     </div>
 
-                    <!-- Skills & Tech Stack -->
                     <div class="bg-[var(--bg-card)]/60 backdrop-blur-xl rounded-[24px] border border-[var(--border-color)] p-6">
                         <h3
                             class="text-[13px] font-bold text-[var(--text-primary)] uppercase tracking-wider mb-4 border-b border-[var(--border-color)] pb-3">
                             Kỹ năng chuyên môn</h3>
                         <div class="flex flex-wrap gap-2">
                             <span v-for="skill in mentor.skills" :key="skill"
-                                class="px-3 py-1.5 bg-black/30 border border-[var(--border-color)] rounded-lg text-[11px] text-gray-300 font-medium hover:border-blue-500/50 hover:text-[var(--text-primary)] transition-colors cursor-default">
+                                class="px-3 py-1.5 bg-[var(--bg-app)] border border-[var(--border-color)] rounded-lg text-[11px] text-[var(--text-secondary)] font-medium hover:border-blue-500/50 hover:text-blue-500 transition-colors cursor-default shadow-sm">
                                 {{ skill }}
                             </span>
                         </div>
                     </div>
                 </aside>
 
-                <!-- Right Content: Tabs -->
                 <div class="space-y-6 md:mt-24 lg:mt-0">
 
-                    <!-- Tab Navigation -->
                     <div
-                        class="flex bg-[var(--bg-card)]/80 p-1.5 rounded-2xl border border-[var(--border-color)] shadow-inner w-full overflow-x-auto custom-scrollbar backdrop-blur-xl">
+                        class="flex bg-[var(--bg-card)]/80 p-1.5 rounded-2xl border border-[var(--border-color)] shadow-sm dark:shadow-inner w-full overflow-x-auto custom-scrollbar backdrop-blur-xl">
                         <button v-for="tab in tabs" :key="tab.id" @click="activeTab = tab.id"
                             :class="['flex-1 px-6 py-3 text-[13px] font-bold rounded-xl transition-all whitespace-nowrap flex items-center justify-center gap-2',
-                                activeTab === tab.id ? 'bg-white/10 text-[var(--text-primary)] shadow-sm' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5']">
+                                activeTab === tab.id ? 'bg-[var(--bg-app)] text-blue-600 dark:text-blue-400 shadow-sm border border-[var(--border-color)]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-black/5 dark:hover:bg-white/5']">
                             <i :class="tab.icon"></i> {{ tab.name }}
                         </button>
                     </div>
 
-                    <!-- Tab Content: Giới thiệu -->
                     <Transition name="fade" mode="out-in">
                         <div v-if="activeTab === 'about'" class="space-y-6">
-                            <!-- About Bio -->
                             <div
                                 class="bg-[var(--bg-card)]/60 backdrop-blur-xl rounded-[24px] border border-[var(--border-color)] p-6 md:p-8">
                                 <h2 class="text-lg font-bold text-[var(--text-primary)] mb-4">Về giảng viên</h2>
-                                <div class="text-[14px] text-gray-300 leading-relaxed space-y-4 font-light"
+                                <div class="text-[14px] text-[var(--text-secondary)] leading-relaxed space-y-4 font-normal"
                                     v-html="mentor.bio"></div>
                             </div>
 
-                            <!-- Experience Timeline -->
                             <div
                                 class="bg-[var(--bg-card)]/60 backdrop-blur-xl rounded-[24px] border border-[var(--border-color)] p-6 md:p-8">
                                 <h2 class="text-lg font-bold text-[var(--text-primary)] mb-6">Kinh nghiệm làm việc</h2>
                                 <div
-                                    class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-white/10 before:to-transparent">
+                                    class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-[var(--border-color)] before:to-transparent">
                                     <div v-for="(exp, index) in mentor.experiences" :key="index"
                                         class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
 
                                         <div
-                                            class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-app)] bg-[var(--bg-card)] group-hover:bg-blue-600 group-hover:border-blue-500/30 text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-colors z-10 ml-0 md:ml-0">
+                                            class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[var(--bg-card)] bg-[var(--bg-app)] group-hover:bg-blue-600 group-hover:border-blue-100 dark:group-hover:border-blue-900 text-[var(--text-secondary)] group-hover:text-white shadow-sm shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-all z-10 ml-0 md:ml-0">
                                             <i class="fa-solid fa-briefcase text-[12px]"></i>
                                         </div>
 
                                         <div
-                                            class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-black/20 p-5 rounded-2xl border border-[var(--border-color)] hover:border-[var(--border-color)] transition-colors ml-4 md:ml-0">
+                                            class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-[var(--bg-app)] p-5 rounded-2xl border border-[var(--border-color)] group-hover:border-blue-500/30 transition-colors ml-4 md:ml-0 shadow-sm">
                                             <div class="flex items-center justify-between mb-1">
                                                 <h3 class="font-bold text-[var(--text-primary)] text-[14px]">{{ exp.role
                                                 }}</h3>
                                                 <span
-                                                    class="text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">{{
+                                                    class="text-[10px] font-bold text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">{{
                                                         exp.year }}</span>
                                             </div>
                                             <p class="text-[12px] text-[var(--text-secondary)] mb-2 font-medium">{{
                                                 exp.company }}</p>
-                                            <p class="text-[12px] text-gray-500 line-clamp-2 leading-relaxed">{{
+                                            <p class="text-[12px] text-[var(--text-secondary)] line-clamp-2 leading-relaxed opacity-80">{{
                                                 exp.description }}</p>
                                         </div>
                                     </div>
@@ -156,9 +139,7 @@
                             </div>
                         </div>
 
-                        <!-- Tab Content: Khóa học -->
                         <div v-else-if="activeTab === 'courses'" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Course Card (Sử dụng cấu trúc tương tự ListCommerceCourses) -->
                             <div v-for="course in mentorCourses" :key="course.id"
                                 class="group flex flex-col bg-[var(--bg-card)]/60 backdrop-blur-md rounded-[20px] border border-[var(--border-color)] overflow-hidden hover:border-blue-500/30 hover:shadow-[0_8px_30px_rgba(59,130,246,0.08)] transition-all duration-300 p-3 gap-4">
                                 <div
@@ -166,7 +147,7 @@
                                     <img :src="course.thumbnail"
                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
                                     <span
-                                        class="absolute top-2 left-2 z-20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[var(--text-primary)] bg-blue-600 rounded shadow-sm">{{
+                                        class="absolute top-2 left-2 z-20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white bg-blue-600 rounded shadow-sm">{{
                                             course.category }}</span>
                                 </div>
                                 <div class="flex-1 flex flex-col justify-between py-1">
@@ -174,33 +155,32 @@
                                         <div class="flex items-center justify-between mb-2">
                                             <div class="flex items-center text-yellow-500 text-[11px] gap-0.5">
                                                 <i class="fa-solid fa-star"></i>
-                                                <span class="text-gray-200 font-bold ml-1">{{ course.rating }}</span>
+                                                <span class="text-[var(--text-primary)] font-bold ml-1">{{ course.rating }}</span>
                                             </div>
                                             <span
-                                                class="text-[10px] font-semibold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">{{
+                                                class="text-[10px] font-semibold text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">{{
                                                     course.level }}</span>
                                         </div>
                                         <h3
-                                            class="text-[14px] font-bold text-[var(--text-primary)] mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">
+                                            class="text-[14px] font-bold text-[var(--text-primary)] mb-2 group-hover:text-blue-500 transition-colors line-clamp-2">
                                             {{ course.title }}</h3>
                                     </div>
                                     <div class="flex justify-between items-center pt-3 border-t border-[var(--border-color)] mt-auto">
                                         <span
-                                            :class="['text-[14px] font-extrabold', course.price === 0 ? 'text-emerald-400' : 'text-[var(--text-primary)]']">
+                                            :class="['text-[14px] font-extrabold', course.price === 0 ? 'text-emerald-500' : 'text-[var(--text-primary)]']">
                                             {{ course.price === 0 ? 'Miễn phí' : formatPrice(course.price) }}
                                         </span>
                                         <button
-                                            class="px-4 py-2 bg-white/5 hover:bg-blue-600 text-[var(--text-primary)] text-[11px] font-bold rounded-lg transition-colors">Xem
+                                            class="px-4 py-2 bg-[var(--bg-app)] hover:bg-blue-600 border border-[var(--border-color)] group-hover:border-transparent text-[var(--text-secondary)] hover:text-white text-[11px] font-bold rounded-lg transition-all shadow-sm">Xem
                                             chi tiết</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Tab Content: Đánh giá -->
                         <div v-else-if="activeTab === 'reviews'" class="space-y-4">
                             <div
-                                class="flex items-center justify-between bg-[var(--bg-card)]/60 p-5 rounded-[20px] border border-[var(--border-color)] mb-6">
+                                class="flex items-center justify-between bg-[var(--bg-card)]/60 p-5 rounded-[20px] border border-[var(--border-color)] mb-6 shadow-sm">
                                 <div class="flex items-center gap-4">
                                     <div class="text-4xl font-extrabold text-[var(--text-primary)]">{{ mentor.rating }}
                                     </div>
@@ -216,22 +196,22 @@
                             </div>
 
                             <div v-for="review in reviews" :key="review.id"
-                                class="bg-[var(--bg-card)]/40 p-5 rounded-[20px] border border-[var(--border-color)] flex gap-4">
+                                class="bg-[var(--bg-card)]/40 p-5 rounded-[20px] border border-[var(--border-color)] flex gap-4 shadow-sm">
                                 <img :src="review.userAvatar"
-                                    class="w-10 h-10 rounded-full object-cover shrink-0 border border-[var(--border-color)]" />
+                                    class="w-10 h-10 rounded-full object-cover shrink-0 border border-[var(--border-color)] bg-[var(--bg-app)]" />
                                 <div>
                                     <div class="flex items-center justify-between mb-1">
                                         <h4 class="text-[13px] font-bold text-[var(--text-primary)]">{{ review.userName
                                         }}</h4>
-                                        <span class="text-[10px] text-gray-500">{{ review.date }}</span>
+                                        <span class="text-[10px] text-[var(--text-secondary)]">{{ review.date }}</span>
                                     </div>
                                     <div class="flex text-yellow-500 text-[9px] gap-0.5 mb-2">
                                         <i v-for="i in 5" :key="i"
-                                            :class="i <= review.rating ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
+                                            :class="i <= review.rating ? 'fa-solid fa-star' : 'fa-regular fa-star text-[var(--border-color)]'"></i>
                                     </div>
-                                    <p class="text-[12.5px] text-gray-300 leading-relaxed">{{ review.content }}</p>
+                                    <p class="text-[12.5px] text-[var(--text-secondary)] leading-relaxed">{{ review.content }}</p>
                                     <p
-                                        class="text-[10px] text-blue-400 mt-2 bg-blue-500/10 inline-block px-2 py-1 rounded">
+                                        class="text-[10px] text-blue-600 dark:text-blue-400 mt-2 bg-blue-500/10 border border-blue-500/20 inline-block px-2 py-1 rounded-md font-medium">
                                         Khóa học: {{ review.courseName }}</p>
                                 </div>
                             </div>
@@ -275,7 +255,7 @@ const mentor = ref({
     ],
     bio: `
         <p>Xin chào! Mình là Thanh Sơn, một kỹ sư phần mềm với hơn 8 năm kinh nghiệm làm việc tại các tập đoàn công nghệ lớn và startup quy mô toàn cầu. Niềm đam mê lớn nhất của mình không chỉ là viết code, mà là thiết kế ra những kiến trúc hệ thống (System Architecture) bền vững và có khả năng mở rộng hàng triệu users.</p>
-        <p>Phương pháp giảng dạy của mình tập trung 100% vào thực chiến. Mình không dạy bạn học thuộc cú pháp, mình hướng dẫn bạn cách tư duy như một kỹ sư thực thụ để giải quyết các bài toán hóc búa trong môi trường Production.</p>
+        <p class="mt-2">Phương pháp giảng dạy của mình tập trung 100% vào thực chiến. Mình không dạy bạn học thuộc cú pháp, mình hướng dẫn bạn cách tư duy như một kỹ sư thực thụ để giải quyết các bài toán hóc búa trong môi trường Production.</p>
     `,
     experiences: [
         { role: 'Solutions Architect', company: 'TechCorp Global', year: '2022 - Hiện tại', description: 'Thiết kế kiến trúc Microservices cho hệ thống Fintech xử lý hơn 10.000 TPS. Lãnh đạo đội ngũ kỹ sư 20 người.' },
@@ -318,7 +298,7 @@ const formatPrice = (price) => {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--border-color);
     border-radius: 4px;
 }
 
