@@ -109,9 +109,9 @@
           Được thiết kế với ❤️ dành cho học viên hiện đại.
         </p>
         <div class="flex items-center gap-4 text-[12px]">
-          <a href="" class="hover:text-white transition-colors">Tiếng Việt</a>
+          <a href="" class="text-white transition-colors">Tiếng Việt</a>
           <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
-          <a href="" class="hover:text-white transition-colors">English</a>
+          <a href="" class="text-white transition-colors">English</a>
         </div>
       </div>
       <div class="pt-8 border-t border-white/20 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -124,7 +124,7 @@
             class="text-gray-400 hover:text-white transition-colors duration-200" title="GitHub">
             <i class="fa-brands fa-github"></i>
           </a>
-          <a href="https://www.facebook.com/dangkh0a2004" target="_blank"
+          <a href="https://github.com/dangkhoa2004/vite-project" target="_blank"
             class="text-gray-400 hover:text-white transition-colors duration-200" title="Facebook">
             <i class="fa-brands fa-facebook"></i>
           </a>
