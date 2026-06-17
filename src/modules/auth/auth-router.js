@@ -16,17 +16,17 @@ export default [
   },
   {
     path: "/thong-tin-tai-khoan",
-    name: "AccountInformation",
-    component: () => import("./views/AccountInformation.vue"),
+    name: "AccountProfile",
+    component: () => import("./views/AccountProfile.vue"),
   },
   {
     path: "/lich-su-thanh-toan",
-    name: "PaymentHistory",
-    component: () => import("./views/PaymentHistory.vue"),
+    name: "AccountBilling",
+    component: () => import("./views/AccountBilling.vue"),
   },
   {
     path: "/cai-dat-bao-mat",
-    name: "SecurityNPassword",
-    component: () => import("./views/SecurityNPassword.vue"),
+    name: "AccountSecurity",
+    component: () => import("./views/AccountSecurity.vue"),
   }
 ];
