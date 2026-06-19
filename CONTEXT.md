@@ -13,7 +13,7 @@
 │  └──────────────────────────────────────────────────────┘   │
 │                                                             │
 │  ┌──────────────────────────────────────────────────────┐   │
-│  │              ROUTER (Vue Router 5)                   │   │
+│  │              ROUTER (Vue Router 4)                   │   │
 │  │  ├─ /dang-nhap → account/SignIn                      │   │
 │  │  ├─ /khoa-hoc-cua-toi → courses/MyCourses            │   │
 │  │  ├─ /phong-hoc/:courseId → learning/LearningRoom     │   │
@@ -358,10 +358,10 @@ path: '/phong-hoc/:courseId'
 path: '/thong-tin-tai-khoan'
 
 // Route name: PascalCase
-name: 'Login'
-name: 'MyCourses'
-name: 'LearningRoom'
-name: 'AccountProfile'
+name: 'DangNhap'
+name: 'KhoaHocCuaToi'
+name: 'PhongHoc'
+name: 'ThongTinTaiKhoan'
 ```
 
 ---

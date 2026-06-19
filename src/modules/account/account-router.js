@@ -1,32 +1,32 @@
 export default [
   {
     path: "/dang-nhap",
-    name: "Login",
+    name: "DangNhap",
     component: () => import("./views/SignIn.vue"),
   },
   {
     path: "/dang-ky",
-    name: "Register",
+    name: "DangKy",
     component: () => import("./views/SignUp.vue"),
   },
   {
     path: "/quen-mat-khau",
-    name: "ForgotPassword",
+    name: "QuenMatKhau",
     component: () => import("./views/ForgotPassword.vue"),
   },
   {
     path: "/thong-tin-tai-khoan",
-    name: "AccountProfile",
+    name: "ThongTinTaiKhoan",
     component: () => import("./views/AccountProfile.vue"),
   },
   {
     path: "/lich-su-thanh-toan",
-    name: "AccountBilling",
+    name: "LichSuThanhToan",
     component: () => import("./views/AccountBilling.vue"),
   },
   {
     path: "/cai-dat-bao-mat",
-    name: "AccountSecurity",
+    name: "CaiDatBaoMat",
     component: () => import("./views/AccountSecurity.vue"),
   }
 ];

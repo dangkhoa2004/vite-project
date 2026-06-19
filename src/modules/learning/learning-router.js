@@ -1,7 +1,7 @@
 export default [
   {
     path: '/phong-hoc/:courseId',
-    name: 'LearningRoom',
+    name: 'PhongHoc',
     component: () => import('./views/LearningRoom.vue'),
     meta: { requiresAuth: true, requiresPurchase: true }
   }

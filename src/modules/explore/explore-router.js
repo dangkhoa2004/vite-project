@@ -1,7 +1,7 @@
 export default [
   {
     path: '/kham-pha',
-    name: 'Explore',
+    name: 'KhamPha',
     component: () => import('./views/Explore.vue'),
   }
 ]

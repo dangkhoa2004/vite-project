@@ -1,19 +1,19 @@
 export default [
   {
     path: "/khoa-hoc",
-    name: "Courses",
+    name: "KhoaHoc",
     // Gọi đến views của module courses
     component: () => import("./views/CommerceCourses.vue"),
   },
   {
     path: "/chi-tiet-khoa-hoc",
-    name: "CourseDetail",
+    name: "ChiTietKhoaHoc",
     // Gọi đến views của module courses
     component: () => import("./views/CourseDetail.vue"),
   },
   {
     path: "/giang-vien/:id",
-    name: "MentorDetail",
+    name: "ThongTinGiangVien",
     // Gọi đến views của module courses
     component: () => import("./views/MentorDetail.vue"),
   },

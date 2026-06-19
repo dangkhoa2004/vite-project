@@ -1,8 +1,8 @@
 export default [
   {
     path: "/",
-    name: "Home",
+    name: "TrangChu",
     // Mặc định gọi đến views của module courses
-    component: () => import("./views/HomePage.vue"),
+    component: () => import("./views/TrangChu.vue"),
   }
 ];

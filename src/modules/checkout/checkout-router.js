@@ -1,7 +1,7 @@
 export default [
   {
     path: "/gio-hang",
-    name: "Cart",
+    name: "GioHang",
     component: () => import("./views/YourCart.vue"),
   },
 ];
