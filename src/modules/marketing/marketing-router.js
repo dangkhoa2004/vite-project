@@ -17,9 +17,4 @@ export default [
     // Gọi đến views của module courses
     component: () => import("./views/MentorDetail.vue"),
   },
-  {
-    path: "/gio-hang",
-    name: "Cart",
-    component: () => import("./views/YourCart.vue"),
-  },
 ];

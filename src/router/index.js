@@ -11,6 +11,7 @@ import systemRoutes from '@/modules/app-settings/app-settings-router'
 import exploreRoutes from '@/modules/explore/explore-router'
 import teacherRoutes from '@/modules/teacher/teacher-router'
 import marketingRoutes from '@/modules/marketing/marketing-router'
+import checkoutRoutes from '@/modules/checkout/checkout-router'
 import NotFound from '@/components/features/NotFound.vue'
 
 // 2. Gộp tất cả routes lại bằng Spread Operator (...)
@@ -22,6 +23,7 @@ const routes = [
   ...exploreRoutes,
   ...teacherRoutes,
   ...marketingRoutes,
+  ...checkoutRoutes,
   ...systemRoutes,
   {
     path: '/:pathMatch(.*)*',
