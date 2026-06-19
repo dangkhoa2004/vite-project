@@ -23,4 +23,8 @@
  * @property {number} duration - Tổng thời gian (giây)
  */
 
-export {} // Export rỗng để file được coi là một module
+// types/learning.constants.js
+export const COURSE_STATUS = {
+  LEARNING: 'learning',
+  COMPLETED: 'completed'
+}

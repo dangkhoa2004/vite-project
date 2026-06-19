@@ -1,0 +1,26 @@
+name: CI - Kiểm tra Build dự án
+
+on:
+  pull_request:
+    branches:
+      - main # Hoặc đổi thành 'master' tùy theo tên nhánh chính của bạn
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Tải mã nguồn về máy chủ ảo
+        uses: actions/checkout@v4
+
+      - name: 2. Thiết lập môi trường Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Khuyên dùng bản 20 để tương thích tốt với Vite mới nhất
+          cache: 'npm'       # Bật bộ nhớ đệm giúp cài đặt thư viện nhanh hơn ở các lần sau
+
+      - name: 3. Cài đặt các gói thư viện (Dependencies)
+        run: npm install
+
+      - name: 4. Chạy thử nghiệm lệnh Build
+        run: npm run build

@@ -37,34 +37,34 @@
           aria-label="Search">
           <i class="fa-solid fa-magnifying-glass text-lg"></i>
         </button>
-        <!-- Cart -->
         <a href="/gio-hang"
           class="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors group p-2">
           <div class="relative">
             <i class="fa-solid fa-bag-shopping text-lg group-hover:text-orange-400 transition-colors"></i>
             <span
-              class="absolute -top-1.5 -right-2 w-4 h-4 flex items-center justify-center bg-orange-500 border border-[var(--bg-card)] rounded-full text-[9px] font-bold text-white">
-              3
-            </span>
+              class="absolute -top-1.5 -right-2 w-4 h-4 flex items-center justify-center bg-orange-500 border border-[var(--bg-card)] rounded-full text-[9px] font-bold text-white">3</span>
           </div>
         </a>
-        <!-- Theme Toggle -->
         <button @click="toggleDark" class="text-[var(--text-secondary)] hover:text-orange-400 transition-colors p-2"
           aria-label="Toggle Theme">
           <i :class="isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon'" class="text-lg"></i>
         </button>
 
         <div class="w-px h-6 bg-[var(--border-color)] mx-1 hidden sm:block"></div>
-        <!-- User Menu -->
+
         <div v-if="isAuthenticated" class="relative group">
           <button
             class="flex items-center gap-2.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors ml-1">
-            <div
+
+            <img v-if="user?.avatar" :src="user.avatar" alt="Avatar"
+              class="w-9 h-9 rounded-full object-cover shadow-md border-2 border-transparent group-hover:border-blue-400 transition-all" />
+            <div v-else
               class="w-9 h-9 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-[13px] shadow-md border-2 border-transparent group-hover:border-blue-400 transition-all">
-              {{ user?.name?.charAt(0).toUpperCase() || 'U' }}
+              {{ user?.fullName?.charAt(0).toUpperCase() || 'U' }}
             </div>
+
             <span class="text-[14px] font-medium hidden sm:block max-w-[100px] truncate">
-              {{ user?.name }}
+              {{ user?.fullName || 'Đang tải...' }}
             </span>
             <i class="fa-solid fa-chevron-down text-[10px] opacity-70 group-hover:rotate-180 transition-transform"></i>
           </button>
@@ -75,8 +75,10 @@
               class="bg-[var(--bg-card)] backdrop-blur-xl border border-[var(--border-color)] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] py-2 flex flex-col">
 
               <div class="px-4 py-3 border-b border-[var(--border-color)] mb-1">
-                <p class="text-[13px] text-[var(--text-primary)] font-bold truncate">{{ user?.name }}</p>
-                <p class="text-[11px] text-[var(--text-secondary)] truncate">{{ user?.email }}</p>
+                <p class="text-[13px] text-[var(--text-primary)] font-bold truncate">{{ user?.fullName || 'Người dùng'
+                  }}</p>
+                <p class="text-[11px] text-[var(--text-secondary)] truncate">{{ user?.email || 'email@example.com' }}
+                </p>
               </div>
 
               <a href="/thong-tin-tai-khoan"
@@ -98,12 +100,14 @@
             </div>
           </div>
         </div>
+
         <div v-else>
           <a href="/dang-nhap"
             class="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white transition-all font-medium text-[13px]">
             Đăng nhập
           </a>
         </div>
+
         <div v-if="isAuthenticated" class="relative group">
           <button class="relative text-[var(--text-secondary)] hover:text-blue-500 transition-colors p-2"
             aria-label="Notifications">
@@ -168,14 +172,20 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 import { useColorMode } from '@/composables/useColorMode'
 import { useRouter } from 'vue-router'
 
-const { user, isAuthenticated, logout } = useAuth()
+// Lấy thêm checkSession từ composable
+const { user, isAuthenticated, logout, checkSession } = useAuth()
 const { isDark, toggleDark } = useColorMode()
 const router = useRouter()
+
+// --- GỌI API LẤY THÔNG TIN KHI LOAD HEADER ---
+onMounted(async () => {
+  await checkSession() // Sẽ tự động kiểm tra token và gọi API lấy profile nếu cần
+})
 
 // --- State cho ô tìm kiếm ---
 const searchQuery = ref('')
@@ -198,39 +208,7 @@ const notifications = ref([
     iconBg: 'bg-purple-500/10',
     link: '#'
   },
-  {
-    id: 2,
-    title: 'Hệ thống AI Assistant ra mắt',
-    message: 'Tính năng Trợ lý ảo EduAI đã được cập nhật. Bạn có 1 suất trải nghiệm sớm!',
-    time: '2 giờ trước',
-    read: false,
-    icon: 'fa-solid fa-wand-magic-sparkles',
-    iconColor: 'text-orange-500',
-    iconBg: 'bg-orange-500/10',
-    link: '/kham-pha'
-  },
-  {
-    id: 3,
-    title: 'Chương trình học mới',
-    message: 'Chương 4 "Vue Router Chuyên sâu" vừa được thêm vào khóa học của bạn.',
-    time: '1 ngày trước',
-    read: true,
-    icon: 'fa-solid fa-book-open',
-    iconColor: 'text-blue-500',
-    iconBg: 'bg-blue-500/10',
-    link: '#'
-  },
-  {
-    id: 4,
-    title: 'Nhắc nhở nộp bài tập',
-    message: 'Bài tập tự luận "Build To-do App" của bạn sắp hết hạn sau 24h nữa.',
-    time: '2 ngày trước',
-    read: true,
-    icon: 'fa-solid fa-clock',
-    iconColor: 'text-rose-500',
-    iconBg: 'bg-rose-500/10',
-    link: '#'
-  }
+  // ... (mock data khác giữ nguyên)
 ])
 
 const unreadCount = computed(() => notifications.value.filter(n => !n.read).length)
@@ -242,7 +220,8 @@ const markAllAsRead = () => {
 // --- Logout ---
 const handleLogout = () => {
   logout()
-  router.push('/dang-nhap')
+  // Lưu ý: hàm logout() trong useAuth đã bao gồm window.location.href = '/login', 
+  // nên không cần phải router.push() ở đây nữa để tránh xung đột
 }
 </script>
 

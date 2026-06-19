@@ -25,7 +25,7 @@
           placeholder="Tìm kiếm khóa học..." 
           class="flex-1 bg-transparent border-none text-[var(--text-primary)] text-sm px-4 focus:outline-none placeholder-[var(--text-secondary)]"
         />
-        <button class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-[var(--text-primary)] font-semibold rounded-full transition-all shadow-[0_4px_15px_rgba(37,99,235,0.4)]">
+        <button class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-full transition-all shadow-[0_4px_15px_rgba(37,99,235,0.4)]">
           Tìm kiếm
         </button>
       </div>

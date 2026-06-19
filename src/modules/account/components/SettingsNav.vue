@@ -43,14 +43,8 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
-
-// Khởi tạo route để lấy thông tin đường dẫn hiện tại
 const route = useRoute()
-
-// Hàm kiểm tra xem đường dẫn hiện tại có khớp với menu hay không
 const isActive = (path) => {
-    // Sử dụng startsWith nếu muốn menu vẫn active khi ở các trang con (VD: /lich-su-thanh-toan/123)
-    // Hoặc dùng === nếu chỉ muốn active khi khớp chính xác tuyệt đối
     return route.path === path
 }
 </script>

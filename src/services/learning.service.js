@@ -1,17 +1,30 @@
-import api from './api'
+import apiClient from './api.service';
 
-export const learningService = {
-  // Lấy thông tin phòng học, danh sách video, tài liệu
-  getRoomData(courseId) {
-    return api.get(`/learning/courses/${courseId}/room-data`)
-  },
-  
-  // Gửi tiến độ học tập (ví dụ: đang xem đến giây thứ 120)
-  syncProgress(courseId, lessonId, currentTime) {
-    return api.post(`/learning/progress`, {
-      courseId,
-      lessonId,
-      currentTime
-    })
-  }
-}
+const learningService = {
+    getMyLearning() {
+        return apiClient.get('/learning/my-courses');
+    },
+
+    getCourseSyllabus(courseId) {
+        return apiClient.get(`/learning/courses/${courseId}/syllabus`);
+    },
+
+    syncVideoProgress(enrollmentId, lessonId, currentSecond, isCompleted) {
+        return apiClient.post('/learning/progress', {
+            enrollment_id: enrollmentId,
+            lesson_id: lessonId,
+            last_watched_second: currentSecond,
+            is_completed: isCompleted
+        });
+    },
+
+    addNote(lessonId, content, timestamp) {
+        return apiClient.post('/learning/notes', { lesson_id: lessonId, content, video_timestamp: timestamp });
+    },
+
+    getNotes(lessonId) {
+        return apiClient.get(`/learning/notes?lesson_id=${lessonId}`);
+    }
+};
+
+export default learningService;

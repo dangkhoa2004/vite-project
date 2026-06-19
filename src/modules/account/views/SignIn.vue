@@ -1,7 +1,6 @@
 <template>
   <div
     class="min-h-screen flex items-center justify-center bg-[var(--bg-app)] relative overflow-hidden font-sans p-4 transition-colors duration-300">
-
     <div
       class="absolute top-[-10%] right-[10%] w-[40vw] h-[40vw] bg-blue-600/15 rounded-full blur-[140px] pointer-events-none z-0">
     </div>
@@ -11,7 +10,6 @@
 
     <div
       class="relative z-10 w-full max-w-[420px] bg-[var(--bg-card)]/80 backdrop-blur-xl border border-[var(--border-color)] rounded-[24px] p-8 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-500">
-
       <div class="text-center mb-8">
         <div
           class="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blue-500/30">
@@ -40,6 +38,12 @@
         <div class="h-px bg-[var(--border-color)] flex-1"></div>
       </div>
 
+      <div v-if="errorMessage"
+        class="mb-5 p-3 bg-red-500/10 border border-red-500/50 rounded-xl flex items-start gap-3">
+        <i class="fa-solid fa-circle-exclamation text-red-500 mt-0.5"></i>
+        <p class="text-[13px] text-red-500 font-medium">{{ errorMessage }}</p>
+      </div>
+
       <form @submit.prevent="handleLogin" class="flex flex-col gap-5">
         <div class="flex flex-col gap-1.5">
           <label for="email" class="text-[13px] font-medium text-[var(--text-secondary)] ml-1">Email</label>
@@ -66,14 +70,16 @@
           </div>
         </div>
 
-        <button type="submit" :disabled="isLoading"
-          class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-[var(--text-primary)] text-[14px] font-bold rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2">
-          {{ isLoading ? 'Đang xử lý...' : 'Đăng nhập' }}
+        <button type="submit" :disabled="authStore.isLoading"
+          class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[14px] font-bold rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
+          <i v-if="authStore.isLoading" class="fa-solid fa-spinner fa-spin"></i>
+          {{ authStore.isLoading ? 'Đang xử lý...' : 'Đăng nhập' }}
         </button>
       </form>
 
       <p class="text-center text-[13px] text-[var(--text-secondary)] mt-8">
-        Chưa có tài khoản? <a href="/dang-ky" class="text-blue-400 font-bold hover:underline">Đăng ký ngay</a>
+        Chưa có tài khoản? <router-link to="/dang-ky" class="text-blue-400 font-bold hover:underline">Đăng ký
+          ngay</router-link>
       </p>
     </div>
   </div>
@@ -82,40 +88,37 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useAuth } from '@/composables/useAuth'
+import { useAuthStore } from '@/stores/auth.store.js' // Import Pinia store
 
 const router = useRouter()
 const route = useRoute()
-
-// Em giả lập useAuth tránh lỗi nếu anh chưa viết composable này
-const { login } = useAuth ? useAuth() : { login: async () => new Promise(r => setTimeout(r, 1500)) }
+const authStore = useAuthStore() // Khởi tạo store
 
 const email = ref('')
 const password = ref('')
-const isLoading = ref(false)
 const errorMessage = ref('')
-const showPassword = ref(false) // State quản lý ẩn/hiện mật khẩu
+const showPassword = ref(false)
 
 const togglePassword = () => {
   showPassword.value = !showPassword.value
 }
 
 const handleLogin = async () => {
-  isLoading.value = true
   errorMessage.value = ''
 
-  try {
-    await login(email.value, password.value)
+  // Gọi hàm login từ store
+  const success = await authStore.login({
+    email: email.value,
+    password: password.value
+  })
+
+  if (success) {
+    // Nếu có redirect param (ví dụ người dùng đang xem khóa học bị bắt đăng nhập), thì trả về trang đó, không thì về trang chủ
     const redirectPath = route.query.redirect || '/'
     router.push(redirectPath)
-  } catch (error) {
-    errorMessage.value = 'Sai email hoặc mật khẩu. Vui lòng thử lại!'
-  } finally {
-    isLoading.value = false
+  } else {
+    // authStore.error đã được gán sẵn thông báo lỗi từ backend
+    errorMessage.value = authStore.error || 'Đăng nhập thất bại. Vui lòng thử lại!'
   }
 }
 </script>
-
-<style scoped>
-/* Không cần custom CSS vì đã sử dụng Tailwind 100% */
-</style>

@@ -100,43 +100,30 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useCommerceStore } from '@/stores/commerce.store.js'
 import CommerceCourseFilter from '../components/CommerceCourseFilter.vue'
 import ListCommerceCourses from '../components/ListCommerceCourses.vue'
 import HomePageHeader from '@/layouts/HomePageHeader.vue'
 import HomePageFooter from '@/layouts/HomePageFooter.vue'
-import DropDownUI from '@/components/DropDownUI.vue'
+
+// Khởi tạo store
+const commerceStore = useCommerceStore()
+
+// Lấy trực tiếp các state từ store (dùng storeToRefs để giữ tính reactivity)
+const { courses, isLoading, error } = storeToRefs(commerceStore)
 
 const viewMode = ref('list')
 
-const courses = ref([
-    {
-        id: 1, title: 'Làm chủ Backend thực chiến với PHP & Supabase', description: 'Thiết kế RESTful API mạnh mẽ, quản lý xác thực và cơ sở dữ liệu thời gian thực cực nhanh với hệ sinh thái Supabase.',
-        category: 'Backend', level: 'Trung cấp', price: 0, lessons: 42, duration: '30 giờ', students: 2150, rating: 4.9, reviews: 340,
-        thumbnail: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&w=600&q=80',
-        badges: ['Bán chạy', 'Mới'],
-        tools: ['PHP', 'Supabase', 'Git'],
-        whatYouWillLearn: ['Xây dựng API bảo mật với PHP', 'Quản lý Auth và Database bằng Supabase', 'Triển khai dự án lên Production'],
-        instructor: { name: 'Thanh Sơn', avatar: 'https://i.pravatar.cc/150?u=1' }
-    },
-    {
-        id: 2, title: 'Frontend hiện đại hoàn chỉnh với Vue 3 & Figma', description: 'Từ bản thiết kế Figma chuyên nghiệp đến ứng dụng Vue 3 hoàn chỉnh với Composition API và Pinia.',
-        category: 'Frontend', level: 'Cơ bản', price: 599000, lessons: 38, duration: '28 giờ', students: 840, rating: 4.8, reviews: 125,
-        thumbnail: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80',
-        badges: ['Mới'],
-        tools: ['Vue', 'Figma', 'CSS'],
-        whatYouWillLearn: ['Cắt HTML/CSS chuẩn pixel từ Figma', 'Làm chủ Vue 3 Composition API', 'Quản lý state với Pinia'],
-        instructor: { name: 'Hoàng Lan', avatar: 'https://i.pravatar.cc/150?u=2' }
-    },
-    {
-        id: 3, title: 'Cơ sở dữ liệu PostgreSQL & Tối ưu hóa truy vấn', description: 'Thiết kế chuẩn hóa cơ sở dữ liệu, tối ưu hóa các câu lệnh query phức tạp và phân vùng bảng lớn.',
-        category: 'Database', level: 'Nâng cao', price: 450000, lessons: 30, duration: '20 giờ', students: 620, rating: 4.5, reviews: 88,
-        thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
-        badges: [],
-        tools: ['PostgreSQL', 'Docker'],
-        whatYouWillLearn: ['Thiết kế CSDL chuẩn DNF', 'Tạo Index và Explain Query', 'Chạy DB qua Docker Container'],
-        instructor: { name: 'Văn Toàn', avatar: 'https://i.pravatar.cc/150?u=3' }
-    }
-])
+// 2. Gọi hàm load từ store khi component được mount
+onMounted(() => {
+    document.addEventListener('click', handleClickOutside)
+    // Bạn có thể truyền phân trang nếu backend hỗ trợ
+    commerceStore.loadCourses({ page: 1, limit: 50 })
+})
+
+onUnmounted(() => document.removeEventListener('click', handleClickOutside))
+
 
 const ratings = [
     { value: 0, label: 'Tất cả' },
@@ -177,11 +164,10 @@ const handleClickOutside = (event) => {
         isSortDropdownOpen.value = false
     }
 }
-onMounted(() => document.addEventListener('click', handleClickOutside))
-onUnmounted(() => document.removeEventListener('click', handleClickOutside))
 
 
 const filteredCourses = computed(() => {
+    // Sử dụng `courses.value` lấy từ store
     let result = [...courses.value]
     if (searchQuery.value.trim()) {
         const query = searchQuery.value.toLowerCase().trim()
@@ -207,7 +193,6 @@ const resetFilters = () => {
     sortBy.value = 'newest'
 }
 </script>
-
 <style scoped>
 /* Hiệu ứng Dropdown Sắp xếp */
 .dropdown-fade-enter-active,

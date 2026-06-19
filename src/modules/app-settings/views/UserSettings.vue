@@ -52,10 +52,9 @@ import { reactive, ref, computed } from 'vue'
 import HomePageHeader from '@/layouts/HomePageHeader.vue'
 
 // Import Components
-import useColorMode from '../components/useColorMode.vue'
-import useLearningExperience from '../components/useLearningExperience.vue'
-import useNotifications from '../components/useNotifications.vue'
-import useDangerZone from '../components/useDangerZone.vue'
+import useColorMode from '../components/ColorMode.vue'
+import useLearningExperience from '../components/LearningExperience.vue'
+import useNotifications from '../components/Notifications.vue'
 
 const storedTheme = typeof window !== 'undefined' ? localStorage.getItem('theme') : null
 const settings = reactive({
@@ -74,8 +73,7 @@ const activeTab = ref('colorMode')
 const tabs = [
     { id: 'colorMode', name: 'Giao diện & Ngôn ngữ', icon: 'fa-solid fa-palette', component: useColorMode },
     { id: 'learning', name: 'Trải nghiệm học tập', icon: 'fa-solid fa-laptop-file', component: useLearningExperience },
-    { id: 'notifications', name: 'Tùy chỉnh thông báo', icon: 'fa-regular fa-bell', component: useNotifications },
-    { id: 'danger', name: 'Vùng nguy hiểm', icon: 'fa-solid fa-triangle-exclamation', component: useDangerZone }
+    { id: 'notifications', name: 'Tùy chỉnh thông báo', icon: 'fa-regular fa-bell', component: useNotifications }
 ]
 
 const currentTabComponent = computed(() => tabs.find(t => t.id === activeTab.value)?.component)

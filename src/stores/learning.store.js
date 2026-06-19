@@ -1,58 +1,67 @@
-import { defineStore } from 'pinia'
-import { ref, reactive, computed } from 'vue'
+import { defineStore } from 'pinia';
+import learningService from '../services/learning.service'; // Chú ý: import default
 
-export const useLearningStore = defineStore('learning', () => {
-  const activeLearners = ref(86)
+// ==========================================
+// DATA MAPPER (Private Helper)
+// ==========================================
+const mapSyllabus = (chapters) => {
+    if (!chapters) return [];
+    return chapters.map(chap => ({
+        id: chap.id,
+        title: chap.title,
+        order: chap.order_index,
+        lessons: (chap.lessons || []).map(lesson => ({
+            id: lesson.id,
+            title: lesson.title,
+            videoUrl: lesson.video_url,
+            duration: lesson.duration_seconds,
+            isCompleted: lesson.progress?.is_completed || false,
+            lastWatched: lesson.progress?.last_watched_second || 0,
+            attachments: lesson.attachments || []
+        })).sort((a, b) => a.order_index - b.order_index)
+    })).sort((a, b) => a.order - b.order);
+};
 
-  // Mục lục các bài học
-  const lessons = reactive([
-    { id: 1, title: 'Bài 1: Tổng quan về kiến trúc', type: 'slide' },
-    { id: 2, title: 'Bài 2: Phân tích UI/UX', type: 'slide' },
-    { id: 3, title: 'Bài 3: Kết nối API', type: 'slide' }
-  ])
+// ==========================================
+// PINIA STORE
+// ==========================================
+export const useLearningStore = defineStore('learning', {
+    state: () => ({
+        myEnrollments: [],
+        currentCourseSyllabus: [],
+        activeLesson: null,
+        lessonNotes: [],
+        isLoading: false,
+        error: null
+    }),
+    getters: {
+        totalProgress(state) {
+            if (!state.currentCourseSyllabus.length) return 0;
+            const totalLessons = state.currentCourseSyllabus.reduce((sum, chap) => sum + chap.lessons.length, 0);
+            const completedLessons = state.currentCourseSyllabus.reduce((sum, chap) => 
+                sum + chap.lessons.filter(l => l.isCompleted).length, 0);
+            return totalLessons === 0 ? 0 : Math.round((completedLessons / totalLessons) * 100);
+        }
+    },
+    actions: {
+        async loadCourseSyllabus(courseId) {
+            this.isLoading = true;
+            this.error = null;
+            try {
+                const res = await learningService.getCourseSyllabus(courseId);
+                if (res.status === 'success') {
+                    this.currentCourseSyllabus = mapSyllabus(res.data);
+                }
+            } catch (err) {
+                this.error = 'Không thể tải nội dung khóa học.';
+                console.error(err);
+            } finally {
+                this.isLoading = false;
+            }
+        },
 
-  // Bài học hiện tại đang xem
-  const currentLesson = ref(lessons[0])
-
-  // Lưu trữ TẤT CẢ tin nhắn của khóa học
-  const allMessages = reactive([
-    { id: 1, lessonId: 1, user: 'Minh Tuấn', text: 'Slide phần này làm rõ ràng quá!', time: '10:00' },
-    { id: 2, lessonId: 1, user: 'Hải Yến', text: 'Cho em hỏi thêm về sơ đồ luồng ạ.', time: '10:05' },
-    { id: 3, lessonId: 2, user: 'Khoa', text: 'Màu nền của slide này mã hex là bao nhiêu vậy?', time: '10:20' }
-  ])
-
-  // Lọc tin nhắn chỉ hiển thị theo bài học hiện tại
-  const messages = computed(() => 
-    allMessages.filter(m => m.lessonId === currentLesson.value.id)
-  )
-
-  const attachments = reactive([
-    { id: 1, name: 'Slide_Giang_Day.pdf', size: '2.4 MB', type: 'pdf' },
-    { id: 2, name: 'Source_Code.zip', size: '15 MB', type: 'zip' }
-  ])
-
-  const addMessage = (text) => {
-    allMessages.push({
-      id: Date.now(),
-      lessonId: currentLesson.value.id, // Gắn ID bài học hiện tại vào tin nhắn
-      user: 'Khoa',
-      text: text,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    })
-  }
-
-  const changeLesson = (lessonId) => {
-    const found = lessons.find(l => l.id === lessonId)
-    if (found) currentLesson.value = found
-  }
-
-  return { 
-    activeLearners, 
-    lessons, 
-    currentLesson, 
-    messages, 
-    attachments, 
-    addMessage, 
-    changeLesson 
-  }
-})
+        setActiveLesson(lesson) {
+            this.activeLesson = lesson;
+        }
+    }
+});

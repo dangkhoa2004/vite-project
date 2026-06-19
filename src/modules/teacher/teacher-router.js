@@ -1,7 +1,7 @@
 export default [
   {
     path: "/giang-vien/danh-sach-khoa-hoc",
-    name: "ManagerCourses",
-    component: () => import("./views/ManagerCourses.vue"),
+    name: "ManageCourses",
+    component: () => import("./views/ManageCourses.vue"),
   },
 ];

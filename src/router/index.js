@@ -3,23 +3,25 @@ import { useAuth } from '@/composables/useAuth'
 import { useGlobalLoader } from '@/composables/useGlobalLoader' // 1. Import composable quản lý loading
 
 // 1. Import các router modules
-import authRoutes from '@/modules/auth/auth-router'
+import publicRoutes from '@/modules/public/public-router'
+import accountRoutes from '@/modules/account/account-router'
 import courseRoutes from '@/modules/courses/courses-router'
 import learningRoutes from '@/modules/learning/learning-router'
-import systemRoutes from '@/modules/system/system-router'
+import systemRoutes from '@/modules/app-settings/app-settings-router'
 import exploreRoutes from '@/modules/explore/explore-router'
 import teacherRoutes from '@/modules/teacher/teacher-router'
-import commerceRoutes from '@/modules/commerce/commerce-router'
-import NotFound from '@/components/NotFound.vue'
+import marketingRoutes from '@/modules/marketing/marketing-router'
+import NotFound from '@/components/features/NotFound.vue'
 
 // 2. Gộp tất cả routes lại bằng Spread Operator (...)
 const routes = [
+  ...publicRoutes,
   ...courseRoutes,
   ...learningRoutes,
-  ...authRoutes,
+  ...accountRoutes,
   ...exploreRoutes,
   ...teacherRoutes,
-  ...commerceRoutes,
+  ...marketingRoutes,
   ...systemRoutes,
   {
     path: '/:pathMatch(.*)*',

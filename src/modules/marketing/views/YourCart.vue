@@ -259,7 +259,7 @@ const cartItems = ref([
         tags: ['PostgreSQL', 'Docker'],
         rating: 4.5,
         reviews: 120,
-        instructor: { name: 'Văn Toàn', avatar: 'https://via.placeholder.com/80' },
+        instructor: { name: 'Văn Toàn', avatar: '' },
         students: 620,
         image: 'https://uploads.teachablecdn.com/attachments/eHsFVpGVQGWJ4elLNPen_vue-3-the-complete-guide.jpg'
     },
@@ -275,7 +275,7 @@ const cartItems = ref([
         tags: ['CSS', 'Tailwind'],
         rating: 4.8,
         reviews: 200,
-        instructor: { name: 'Minh Anh', avatar: 'https://via.placeholder.com/80' },
+        instructor: { name: 'Minh Anh', avatar: '' },
         students: 480,
         image: 'https://th.bing.com/th/id/R.e7a8101b92dcc405926fe03e988046c5?rik=f%2bFlwRkOy%2bfUQg&pid=ImgRaw&r=0'
     }
