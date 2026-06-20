@@ -14,7 +14,7 @@
           <div class="flex items-center w-full max-w-md mx-auto bg-[var(--bg-app)] backdrop-blur-xl rounded-full p-1.5 border border-[var(--border-color)] focus-within:border-blue-500/50 transition-colors shadow-lg">
               <input type="email" placeholder="Nhập địa chỉ email của bạn..." 
                      class="flex-1 bg-transparent border-none text-[var(--text-primary)] text-sm px-5 focus:outline-none placeholder-[var(--text-secondary)]" />
-              <button class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-[var(--text-primary)] font-bold rounded-full transition-all shadow-md">
+              <button class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-full transition-all shadow-md">
                   Đăng ký ngay
               </button>
           </div>

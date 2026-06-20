@@ -97,10 +97,10 @@
                     class="w-9 h-9 flex items-center justify-center bg-[var(--bg-app)] hover:bg-blue-600 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-xl border border-[var(--border-color)] transition-colors">
                     <i class="fa-solid fa-cart-plus text-[13px]"></i>
                 </button>
-                <a :href="`/chi-tiet-khoa-hoc`"
+                <router-link :to="`/chi-tiet-khoa-hoc/${course.id}`"
                     class="px-4 h-9 bg-blue-600 hover:bg-blue-500 text-white text-[12px] font-bold rounded-xl transition-all shadow-md flex items-center gap-1.5">
                     Chi tiết
-                </a>
+                </router-link>
             </div>
         </div>
     </div>

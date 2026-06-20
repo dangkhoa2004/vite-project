@@ -88,7 +88,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useAuthStore } from '@/stores/auth.store.js' // Import Pinia store
+import { useAuthStore } from '@/stores/auth.store.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -105,19 +105,15 @@ const togglePassword = () => {
 
 const handleLogin = async () => {
   errorMessage.value = ''
-
-  // Gọi hàm login từ store
   const success = await authStore.login({
     email: email.value,
     password: password.value
   })
 
   if (success) {
-    // Nếu có redirect param (ví dụ người dùng đang xem khóa học bị bắt đăng nhập), thì trả về trang đó, không thì về trang chủ
     const redirectPath = route.query.redirect || '/'
     router.push(redirectPath)
   } else {
-    // authStore.error đã được gán sẵn thông báo lỗi từ backend
     errorMessage.value = authStore.error || 'Đăng nhập thất bại. Vui lòng thử lại!'
   }
 }

@@ -1,4 +1,3 @@
-// src/store/commerce.store.js
 import { defineStore } from 'pinia';
 import commerceService from '../services/commerce.service';
 
@@ -12,7 +11,8 @@ const mapCourseData = (course) => {
         id: course.id,
         title: course.title,
         description: course.description || 'Mô tả chi tiết đang được cập nhật...',
-        category: course.category_name || `Danh mục ${course.category_id}`,
+        // Lấy tên danh mục nếu backend có Preload
+        category: course.category?.name || course.category_name || `Danh mục ${course.category_id}`,
         level: course.level,
         price: course.current_price,
         originalPrice: course.original_price, 
@@ -36,10 +36,16 @@ const mapCourseData = (course) => {
                 return [];
             }
         })(),
+        // Map dữ liệu Giảng viên thật (từ GORM Preload "Teacher")
         instructor: {
-            name: course.instructor_name || `Giảng viên ${course.teacher_id}`,
-            avatar: course.instructor_avatar || `https://i.pravatar.cc/150?u=${course.teacher_id}`
+            id: course.teacher?.id || course.teacher_id,
+            name: course.teacher?.full_name || `Giảng viên ${course.teacher_id}`,
+            role: course.teacher?.profile?.headline || 'Chuyên gia giảng dạy',
+            avatar: course.teacher?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(course.teacher?.full_name || 'Teacher')}&background=random`,
+            bio: course.teacher?.profile?.bio || 'Giảng viên chưa cập nhật thông tin giới thiệu.',
         },
+        // Mảng Lộ trình học
+        chapters: course.chapters || [],
         status: course.status,
         createdAt: course.created_at
     };
@@ -49,29 +55,32 @@ const mapCourseData = (course) => {
 // PINIA STORE
 // ==========================================
 export const useCommerceStore = defineStore('commerce', {
-    // 1. STATE: Nơi lưu trữ dữ liệu
     state: () => ({
-        courses: [],        // Danh sách khóa học
-        courseDetail: null, // Chi tiết 1 khóa học
-        isLoading: false,   // Trạng thái loading để show UI spinner
-        error: null         // Lưu lỗi nếu có
+        categories: [],     
+        courses: [],        
+        courseDetail: null, 
+        isLoading: false,   
+        error: null         
     }),
-
-    // 2. GETTERS: Lấy dữ liệu phái sinh (nếu cần)
     getters: {
         freeCourses: (state) => state.courses.filter(course => course.price === 0),
     },
-
-    // 3. ACTIONS: Các hàm tương tác với Backend và cập nhật State
     actions: {
+        async loadCategories() {
+            try {
+                const res = await commerceService.fetchCategories();
+                if (res.status === 'success') {
+                    this.categories = res.data || [];
+                }
+            } catch (err) {
+                console.error("Lỗi tải danh mục:", err);
+            }
+        },
         async loadCourses(params = {}) {
             this.isLoading = true;
             this.error = null;
             try {
-                // Đổi tên biến thành res cho chuẩn mực
                 const res = await commerceService.fetchCourses(params);
-                
-                // Kiểm tra status và truy cập vào res.data (chứa mảng khóa học)
                 if (res.status === 'success') {
                     const rawData = res.data || [];
                     this.courses = rawData.map(course => mapCourseData(course));
@@ -83,15 +92,12 @@ export const useCommerceStore = defineStore('commerce', {
                 this.isLoading = false;
             }
         },
-
         async loadCourseDetail(id) {
             this.isLoading = true;
             this.error = null;
             this.courseDetail = null; 
             try {
                 const res = await commerceService.fetchCourseById(id);
-                
-                // Tương tự, bóc lấy res.data
                 if (res.status === 'success') {
                     this.courseDetail = mapCourseData(res.data);
                 }

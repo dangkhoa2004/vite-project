@@ -11,7 +11,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8 items-start">
                 
                 <aside class="bg-[var(--bg-card)]/60 backdrop-blur-md rounded-[24px] border border-[var(--border-color)] overflow-hidden sticky top-28 shadow-xl">
-                    <SettingNavInformation />
+                    <SettingsNav />
                 </aside>
 
                 <div class="space-y-8">
@@ -105,5 +105,5 @@
 
 <script setup>
 import HomePageHeader from '@/layouts/HomePageHeader.vue'
-import SettingNavInformation from '../components/SettingNavInformation.vue'
+import SettingsNav from '../components/SettingsNav.vue'
 </script>

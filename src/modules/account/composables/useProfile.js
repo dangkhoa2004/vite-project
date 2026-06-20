@@ -1,11 +1,15 @@
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '@/stores/user.store';
+import { useOrderStore } from '@/stores/order.store'; // THÊM: Import store giao dịch
 
 export function useProfile() {
     const userStore = useUserStore();
-    // Lấy profile và trạng thái loading từ Store
+    const orderStore = useOrderStore(); // THÊM: Khởi tạo store giao dịch
+    
+    // Lấy state từ Store
     const { profile, isLoading: isSaving } = storeToRefs(userStore);
+    const { orderHistory, isLoading: isLoadingOrders } = storeToRefs(orderStore);
     
     const skillInput = ref('');
 
@@ -36,7 +40,7 @@ export function useProfile() {
                 role: newProfile.headline || '',
                 avatar: newProfile.avatar || '',
                 bio: newProfile.bio || '',
-                privacy: { phone: false, email: true }, // Mặc định nếu backend chưa có logic này
+                privacy: { phone: false, email: true }, 
                 skills: Array.isArray(newProfile.skills) ? [...newProfile.skills] : [],
                 socials: {
                     github: newProfile.socialLinks?.github || '',
@@ -47,12 +51,7 @@ export function useProfile() {
         }
     }, { immediate: true });
 
-    // Load dữ liệu khi component khởi tạo
-    // onMounted(async () => {
-    //     await userStore.fetchUserProfile();
-    // });
-
-    // Xử lý Kỹ năng
+    // Các hàm xử lý Profile hiện tại
     const addSkill = () => {
         const skill = skillInput.value.trim();
         if (skill && !userInfo.value.skills.includes(skill) && userInfo.value.skills.length < 10) {
@@ -65,7 +64,6 @@ export function useProfile() {
         userInfo.value.skills.splice(idx, 1);
     };
 
-    // Xử lý lưu hồ sơ
     const handleSaveProfile = async () => {
         try {
             await userStore.updateProfile(userInfo.value);
@@ -75,14 +73,76 @@ export function useProfile() {
         }
     };
 
-    // Xử lý upload ảnh (Hàm này có thể mở rộng gọi API upload sau)
     const handleAvatarUpload = (event) => {
         const file = event.target.files[0];
         if (file) {
-            // Logic tạm thời: tạo preview, sau này gắn logic upload file ở đây
             userInfo.value.avatar = URL.createObjectURL(file);
         }
     };
+
+    // ==============================================
+    // THÊM MỚI: LOGIC LẤY & FORMAT LỊCH SỬ GIAO DỊCH
+    // ==============================================
+    
+    // Gọi API lấy lịch sử
+    const loadTransactions = async () => {
+        await orderStore.loadOrderHistory();
+    };
+
+    // Computed property map data API sang format của UI AccountBilling
+    const transactions = ref([]);
+    
+    watch(orderHistory, (newHistory) => {
+        if (!newHistory) return;
+        
+        transactions.value = newHistory.map(tx => {
+            // Định dạng tiền tệ VNĐ
+            const formattedAmount = new Intl.NumberFormat('vi-VN', { 
+                style: 'currency', currency: 'VND' 
+            }).format(tx.totalAmount);
+
+            // Định dạng ngày tháng
+            const dateObj = new Date(tx.createdAt);
+            const formattedDate = dateObj.toLocaleDateString('vi-VN', { 
+                day: '2-digit', month: '2-digit', year: 'numeric' 
+            });
+
+            // Map trạng thái
+            let statusText = 'Thành công';
+            if (tx.status === 'pending') statusText = 'Đang xử lý';
+            else if (tx.status === 'failed') statusText = 'Thất bại';
+
+            // Phân tích phương thức thanh toán để hiển thị icon phù hợp
+            let methodText = tx.paymentMethod || 'Hệ thống';
+            let iconClass = 'fa-building-columns';
+            const methodLower = methodText.toLowerCase();
+
+            if (methodLower.includes('momo')) {
+                methodText = 'Momo Pay';
+                iconClass = 'fa-wallet'; 
+            } else if (methodLower.includes('vnpay')) {
+                methodText = 'VNPay';
+                iconClass = 'fa-building-columns';
+            } else if (methodLower.includes('visa') || methodLower.includes('stripe')) {
+                iconClass = 'fa-cc-visa';
+            }
+
+            // Tên khóa học (Nếu backend trả về items, lấy item đầu tiên)
+            const courseName = (tx.items && tx.items.length > 0 && tx.items[0].course)
+                ? tx.items[0].course.title
+                : 'Thanh toán khóa học EduPlatform'; // Fallback nếu API chưa preload course
+
+            return {
+                id: `#ED-${String(tx.id).padStart(5, '0')}`, // VD: #ED-00012
+                date: formattedDate,
+                course: courseName,
+                amount: formattedAmount,
+                status: statusText,
+                method: methodText,
+                methodIcon: iconClass
+            };
+        });
+    }, { immediate: true });
 
     return {
         userInfo,
@@ -91,6 +151,10 @@ export function useProfile() {
         addSkill,
         removeSkill,
         handleSaveProfile,
-        handleAvatarUpload
+        handleAvatarUpload,
+        // Xuất thêm dữ liệu giao dịch
+        transactions,
+        isLoadingOrders,
+        loadTransactions
     };
 }

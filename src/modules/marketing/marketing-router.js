@@ -6,7 +6,7 @@ export default [
     component: () => import("./views/CommerceCourses.vue"),
   },
   {
-    path: "/chi-tiet-khoa-hoc",
+    path: "/chi-tiet-khoa-hoc/:id",
     name: "ChiTietKhoaHoc",
     // Gọi đến views của module courses
     component: () => import("./views/CourseDetail.vue"),

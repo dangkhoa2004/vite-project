@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import authService from '../services/auth.service';
-import router from '@/router'
+import router from '@/router';
+
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         token: localStorage.getItem('access_token') || null,
@@ -13,7 +14,7 @@ export const useAuthStore = defineStore('auth', {
             this.isLoading = true;
             this.error = null;
             try {
-                const res = await authService.login(credentials);
+                const res = await authService.postLogin(credentials);
                 if (res.status === 'success') {
                     this.token = res.data.token;
                     this.isAuthenticated = true;
@@ -31,7 +32,7 @@ export const useAuthStore = defineStore('auth', {
             this.isLoading = true;
             this.error = null;
             try {
-                const res = await authService.register(userData);
+                const res = await authService.postRegister(userData);
                 return res.status === 'success';
             } catch (err) {
                 this.error = err.response?.data?.message || 'Lỗi đăng ký';
@@ -40,7 +41,13 @@ export const useAuthStore = defineStore('auth', {
                 this.isLoading = false;
             }
         },
-        logout() {
+        async logout() {
+            try {
+                // Gọi API backend để clear session/token (nếu có lưu ở backend)
+                await authService.postLogout();
+            } catch (e) {
+                console.warn('Lỗi đăng xuất từ server, vẫn tiếp tục xóa token ở local');
+            }
             this.token = null;
             this.isAuthenticated = false;
             localStorage.removeItem('access_token');
