@@ -24,15 +24,6 @@
       </nav>
 
       <div class="flex items-center gap-2 sm:gap-4 flex-1 justify-end">
-
-        <div class="hidden md:block relative w-full max-w-xs mr-2">
-          <input type="text" v-model="searchQuery" placeholder="Tìm kiếm khóa học, tài liệu..."
-            class="w-full h-10 pl-10 pr-4 rounded-full bg-[var(--bg-app)] border border-[var(--border-color)] text-[13px] text-[var(--text-primary)] focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:text-[var(--text-secondary)]"
-            @keyup.enter="handleSearch">
-          <i
-            class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-secondary)] text-[13px]"></i>
-        </div>
-
         <button class="md:hidden text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors p-2"
           aria-label="Search">
           <i class="fa-solid fa-magnifying-glass text-lg"></i>
@@ -54,19 +45,19 @@
 
         <div v-if="isAuthenticated" class="relative group">
           <button
-            class="flex items-center gap-2.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors ml-1">
-
+            class="group flex items-center gap-2.5 pl-1.5 pr-3 py-1.5 rounded-full bg-transparent hover:bg-[var(--bg-card)]/80 hover:backdrop-blur-md border border-transparent hover:border-[var(--border-color)] transition-all cursor-pointer ml-1">
             <img v-if="user?.avatar" :src="user.avatar" alt="Avatar"
-              class="w-9 h-9 rounded-full object-cover shadow-md border-2 border-transparent group-hover:border-blue-400 transition-all" />
+              class="w-9 h-9 rounded-full object-cover shadow-sm ring-2 ring-transparent group-hover:ring-blue-500/50 transition-all duration-300" />
             <div v-else
-              class="w-9 h-9 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-[13px] shadow-md border-2 border-transparent group-hover:border-blue-400 transition-all">
+              class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-[13px] shadow-sm ring-2 ring-transparent group-hover:ring-blue-500/50 transition-all duration-300">
               {{ user?.fullName?.charAt(0).toUpperCase() || 'U' }}
             </div>
-
-            <span class="text-[14px] font-medium hidden sm:block max-w-[100px] truncate">
+            <span
+              class="text-[13px] font-bold text-[var(--text-primary)] hidden sm:block max-w-[160px] truncate group-hover:text-blue-500 transition-colors">
               {{ user?.fullName || 'Đang tải...' }}
             </span>
-            <i class="fa-solid fa-chevron-down text-[10px] opacity-70 group-hover:rotate-180 transition-transform"></i>
+            <i
+              class="fa-solid fa-chevron-down text-[10px] text-[var(--text-secondary)] opacity-70 group-hover:text-blue-500 group-hover:opacity-100 group-hover:rotate-180 transition-all duration-300"></i>
           </button>
 
           <div
@@ -75,13 +66,13 @@
               class="bg-[var(--bg-card)] backdrop-blur-xl border border-[var(--border-color)] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] py-2 flex flex-col">
 
               <div class="px-4 py-3 border-b border-[var(--border-color)] mb-1">
-                <p class="text-[13px] text-[var(--text-primary)] font-bold truncate">{{ user?.fullName || 'Người dùng'
-                  }}</p>
+                <p class="text-[13px] text-[var(--text-primary)] font-bold truncate">
+                  {{ user?.fullName || 'Người dùng' }}</p>
                 <p class="text-[11px] text-[var(--text-secondary)] truncate">{{ user?.email || 'email@example.com' }}
                 </p>
               </div>
 
-              <a href="/thong-tin-tai-khoan"
+              <a href="/tai-khoan/thong-tin"
                 class="px-4 py-2.5 text-[13px] font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-black/5 dark:hover:bg-white/5 transition-colors flex items-center gap-3">
                 <i class="fa-regular fa-user text-[var(--text-secondary)] w-4"></i> Hồ sơ cá nhân
               </a>
@@ -107,7 +98,31 @@
             Đăng nhập
           </a>
         </div>
+        <div class="w-px h-6 bg-[var(--border-color)] mx-1 hidden sm:block"></div>
+        <a v-if="isAdmin || isTeacher || isStudent" href="/bang-dieu-khien"
+          class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--bg-card)]/80 backdrop-blur-md border border-[var(--border-color)] hover:border-blue-500/50 hover:bg-[var(--bg-app)] transition-all shadow-sm group max-w-[200px] cursor-pointer">
 
+          <div
+            class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] transition-transform group-hover:scale-110"
+            :class="{
+              'bg-rose-500/10 text-rose-500': isAdmin,
+              'bg-blue-500/10 text-blue-500': isTeacher && !isAdmin,
+              'bg-emerald-500/10 text-emerald-500': isStudent && !isAdmin && !isTeacher
+            }">
+            <i class="fa-solid" :class="{
+              'fa-shield-halved': isAdmin,
+              'fa-chalkboard-user': isTeacher && !isAdmin,
+              'fa-user-graduate': isStudent && !isAdmin && !isTeacher
+            }"></i>
+          </div>
+
+          <span
+            class="text-[13px] font-bold text-[var(--text-primary)] truncate group-hover:text-blue-500 transition-colors pr-1">
+            <span v-if="isAdmin">Quản Trị Viên</span>
+            <span v-else-if="isTeacher">Giảng Viên</span>
+            <span v-else-if="isStudent">Học Viên</span>
+          </span>
+        </a>
         <div v-if="isAuthenticated" class="relative group">
           <button class="relative text-[var(--text-secondary)] hover:text-blue-500 transition-colors p-2"
             aria-label="Notifications">
@@ -178,11 +193,9 @@ import { useColorMode } from '@/composables/useColorMode'
 import { useRouter } from 'vue-router'
 
 // Lấy thêm checkSession từ composable
-const { user, isAuthenticated, logout, checkSession } = useAuth()
+const { user, userRoleName, isAdmin, isTeacher, isStudent, isAuthenticated, logout, checkSession } = useAuth()
 const { isDark, toggleDark } = useColorMode()
 const router = useRouter()
-
-// --- GỌI API LẤY THÔNG TIN KHI LOAD HEADER ---
 onMounted(async () => {
   await checkSession() // Sẽ tự động kiểm tra token và gọi API lấy profile nếu cần
 })

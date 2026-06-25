@@ -13,7 +13,6 @@ export default defineConfig({
   base: "/",
   resolve: {
     alias: {
-      // Cấu hình @ trỏ đến thư mục src
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },

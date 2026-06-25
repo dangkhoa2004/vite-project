@@ -2,10 +2,10 @@
     <nav class="flex flex-col py-2">
         <!-- Hồ sơ cá nhân -->
         <router-link 
-            to="/thong-tin-tai-khoan"
+            to="/tai-khoan/thong-tin"
             :class="[
                 'flex items-center gap-3 px-6 py-3.5 font-medium text-[13px] transition-colors',
-                isActive('/thong-tin-tai-khoan') 
+                isActive('/tai-khoan/thong-tin') 
                     ? 'bg-blue-500/10 text-blue-400 border-r-2 border-blue-500' 
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5'
             ]"
@@ -15,10 +15,10 @@
 
         <!-- Bảo mật & Mật khẩu -->
         <router-link 
-            to="/cai-dat-bao-mat"
+            to="/tai-khoan/cai-dat-bao-mat"
             :class="[
                 'flex items-center gap-3 px-6 py-3.5 font-medium text-[13px] transition-colors',
-                isActive('/cai-dat-bao-mat') 
+                isActive('/tai-khoan/cai-dat-bao-mat') 
                     ? 'bg-blue-500/10 text-blue-400 border-r-2 border-blue-500' 
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5'
             ]"
@@ -28,10 +28,10 @@
 
         <!-- Lịch sử thanh toán -->
         <router-link 
-            to="/lich-su-thanh-toan"
+            to="/tai-khoan/lich-su-thanh-toan"
             :class="[
                 'flex items-center gap-3 px-6 py-3.5 font-medium text-[13px] transition-colors',
-                isActive('/lich-su-thanh-toan') 
+                isActive('/tai-khoan/lich-su-thanh-toan') 
                     ? 'bg-blue-500/10 text-blue-400 border-r-2 border-blue-500' 
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5'
             ]"

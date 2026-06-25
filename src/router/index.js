@@ -1,6 +1,8 @@
+// File: src/router/index.js
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuth } from '@/composables/useAuth'
-import { useGlobalLoader } from '@/composables/useGlobalLoader' // 1. Import composable quản lý loading
+import { useGlobalLoader } from '@/composables/useGlobalLoader'
 
 // 1. Import các router modules
 import publicRoutes from '@/modules/public/public-router'
@@ -12,9 +14,10 @@ import exploreRoutes from '@/modules/explore/explore-router'
 import teacherRoutes from '@/modules/teacher/teacher-router'
 import marketingRoutes from '@/modules/marketing/marketing-router'
 import checkoutRoutes from '@/modules/checkout/checkout-router'
+import dashboardRoutes from '@/modules/dashboard/dashboard-router'
 import NotFound from '@/components/features/NotFound.vue'
 
-// 2. Gộp tất cả routes lại bằng Spread Operator (...)
+// 2. Gộp tất cả routes lại 
 const routes = [
   ...publicRoutes,
   ...courseRoutes,
@@ -24,46 +27,57 @@ const routes = [
   ...teacherRoutes,
   ...marketingRoutes,
   ...checkoutRoutes,
+  ...dashboardRoutes,
   ...systemRoutes,
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFound,
     meta: {
-      requiresAuth: false, // Thường là trang công khai
+      requiresAuth: false,
       title: 'Không tìm thấy trang'
     }
   }
 ]
 
-// 3. Khởi tạo Router
 const router = createRouter({
   history: createWebHistory(),
   routes,
 })
 
-// Navigation Guard chặn truy cập trái phép VÀ bật Loading
+// 3. Navigation Guards (Bảo vệ và thiết lập trước khi vào trang)
 router.beforeEach((to, from) => {
   const { isAuthenticated } = useAuth()
   const { showLoader } = useGlobalLoader()
-
-  // Bật hiệu ứng loading ngay khi bắt đầu điều hướng trang
+  
+  // Hiển thị hiệu ứng loading
   showLoader('Đang tải trang...')
 
-  // Logic kiểm tra đăng nhập của em giữ nguyên
+  // --- CẬP NHẬT TIÊU ĐỀ (DYNAMIC TITLE) ---
+  const defaultTitle = 'Edu Platform'
+  document.title = to.meta.title ? `${to.meta.title} | ${defaultTitle}` : defaultTitle
+
+  // --- XỬ LÝ PHÂN QUYỀN (AUTH GUARDS) ---
+  
+  // Trường hợp 1: Cố tình vào trang yêu cầu đăng nhập khi chưa đăng nhập
   if (to.meta.requiresAuth && !isAuthenticated.value) {
-    return { name: 'Login', query: { redirect: to.fullPath } }
+    // Đã sửa 'Login' thành 'DangNhap' để khớp với router của bạn
+    return { name: 'DangNhap', query: { redirect: to.fullPath } }
   }
 
-  return true
+  // Trường hợp 2: Đã đăng nhập nhưng cố tình quay lại trang Đăng nhập / Đăng ký
+  if (to.meta.requiresGuest && isAuthenticated.value) {
+    // Đá về trang chủ hoặc Dashboard tuỳ ý bạn (ở đây đang set về trang chủ)
+    return { path: '/' }
+  }
+
+  return true // Cho phép qua
 })
 
-// Hook chạy sau khi trang đã được tải xong
+// 4. After Hooks (Chạy sau khi đã load xong trang)
 router.afterEach(() => {
   const { hideLoader } = useGlobalLoader()
-  
-  // Dùng setTimeout (khoảng 300ms - 500ms) để UI mượt mà, 
-  // tránh tình trạng trang load quá nhanh làm màn hình nhấp nháy khó chịu
+  // Tắt loader sau một khoảng delay nhỏ để UI mượt mà
   setTimeout(() => {
     hideLoader()
   }, 400)
